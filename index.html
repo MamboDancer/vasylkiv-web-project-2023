@@ -21,9 +21,11 @@
         }
         /*game 1 styles*/
         
-        .wrapperForG1 {
-            width: 20%;
+        .game1Wrapper {
+            width: 50%;
+            height: auto;
             background-color: whitesmoke;
+            color: black;
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,12 +40,28 @@
     <p class="titleText">Free games to play offline</p>
 
 
-
+    <div class="game1Wrapper">
+        <p>Game 1</p>
+        <p>Rock paper sizers</p>
+        <input type="text" name="" id="game1Input">
+        <input type="button" value="play" id="play1GameBtn">
+        <p class="botAnswer"></p>
+        <p class="winOrLose"></p>
+    </div>
 
     <script>
-        //game 1 (aim trainer)
-        let wrapperDivG1 = document.createElement("div").setAttribute("class , wrapperForG1")
-        document.body.push(wrapperDivG1)
+        document.addEventListener("click", game1, "#play1GameBtn")
+
+        function game1() {
+            let botAnswer = Math.floor(Math.random() * 3)
+            document.querySelector(".botAnswer").innerHTML = botAnswer
+
+            let playerAnswer = document.querySelector("#game1Input")
+            if (botAnswer == playerAnswer) {
+                document.querySelector(".winOrLose").innerHTML = "draw"
+                document.createElement( /*restart btn*/ )
+            }
+        }
     </script>
 </body>
 
