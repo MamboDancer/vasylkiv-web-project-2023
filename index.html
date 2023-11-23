@@ -7,9 +7,9 @@
         /*main styles*/
         
         body {
-            background-color: black;
+            background-color: rgb(3, 10, 107);
             color: whitesmoke;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
         /*title styles*/
         
@@ -17,15 +17,14 @@
             font-size: 27px;
             display: flex;
             justify-content: center;
-            flex-direction: column;
-            width: 100%;
+            width: 30%;
             margin-top: 2%;
         }
         /*game 1 , 2 styles*/
         
         .gridDiv {
-            width: 50vw;
-            height: 40vw;
+            width: 30vw;
+            height: 25vw;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             border: 2px solid rgb(255, 255, 255);
@@ -35,6 +34,31 @@
         
         .item {
             font-size: 200%;
+        }
+        
+        .score,
+        .scoreG1 {
+            float: right;
+        }
+        
+        .allGamesWrapper {
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            padding: 10px;
+            margin: 10px;
+        }
+        
+        .game1wrapper,
+        .game2wrapper,
+        .game3wrapper {
+            border: 2px solid white;
+            padding: 10px;
+            margin: 10px;
+        }
+        
+        p {
+            width: auto;
         }
     </style>
 
@@ -51,26 +75,31 @@
 <body>
     <p class="titleText">Free games to play offline</p>
 
+    <div class="allGamesWrapper">
 
-    <div class="game1wrapper">
-        <button class="startGame1Btn">PLAY!</button>
-        <p>Aim trainer</p>
-        <div class="gridDiv"> </div>
-        <p class="score"></p>
-    </div>
+        <div class="game1wrapper">
+            <button class="startGame1Btn">PLAY!</button>
+            <p>Aim trainer</p>
+            <p class="score"></p>
+            <div class="gridDiv"> </div>
+
+        </div>
 
 
-    <div class="game2wrapper">
-        <button class="startGame2Btn">PLAY!</button>
-        <p>Words</p>
-        <p class="scoreG1"></p>
-        <p class="theme">Theme : </p>
-        <p class="mainWord">Letters : </p>
-        <input type="text" name="" id="" class="userInp">
-        <button class="answerBtn">Answer</button>
-    </div>
+        <div class="game2wrapper">
+            <button class="startGame2Btn">PLAY!</button>
+            <p>Words</p>
+            <p class="scoreG1"></p>
+            <p class="theme">Theme : </p>
+            <p class="mainWord">Letters : </p>
+            <input type="text" name="" id="" class="userInp">
+            <button class="answerBtn">Answer</button>
+        </div>
 
-    <div class="game3wrapper">
+        <div class="game3wrapper">
+
+        </div>
+
 
     </div>
 
