@@ -52,15 +52,26 @@
     <p class="titleText">Free games to play offline</p>
 
 
-
-    <div class="gridDiv">
-    </div>
-    <div class="wrapper">
+    <div class="game1wrapper">
+        <button class="startGame1Btn">PLAY!</button>
+        <p>Aim trainer</p>
+        <div class="gridDiv"> </div>
         <p class="score"></p>
+    </div>
+
+
+    <div class="game2wrapper">
+        <button class="startGame2Btn">PLAY!</button>
+        <p>Words</p>
+        <p class="scoreG1"></p>
         <p class="theme">Theme : </p>
         <p class="mainWord">Letters : </p>
         <input type="text" name="" id="" class="userInp">
         <button class="answerBtn">Answer</button>
+    </div>
+
+    <div class="game3wrapper">
+
     </div>
 
 
@@ -70,88 +81,97 @@
 
     <script>
         // game 1 (words)
-        WORDS = {
-            "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
-            "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
-            "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
-            "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
-            "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
-        }
-        let currentWord = ""
-        let totalScrore = 0
+        document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
 
-        showWord()
-
-
-        function newWord() {
-            let keys = Object.keys(WORDS)
-            let theme = keys[Math.floor(Math.random() * keys.length)]
-            let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
-
-
-            mainWordSplited = mainWord.split("")
-            mainWordSplited.sort()
-            currentWord = mainWord
-            return {
-                "theme": theme,
-                "mainWord": mainWordSplited
+        function gameOne() {
+            WORDS = {
+                "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
+                "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
+                "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
+                "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
+                "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
             }
-        }
+            let currentWord = ""
+            let totalScrore = 0
 
-        function showWord() {
-            let riddle = newWord()
-
-            document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
-            document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
-        }
-
-
-        document.querySelector(".answerBtn").addEventListener("click", function() {
-            let userAnswer = document.querySelector(".userInp").value.toLowerCase()
-            console.log(currentWord)
-            console.log(userAnswer)
-            if (userAnswer === currentWord) totalScrore++
-
-                else totalScrore--
-
-                    document.querySelector(".score").innerHTML = totalScrore
-            document.querySelector(".userInp").value = ""
             showWord()
-        })
+
+
+            function newWord() {
+                let keys = Object.keys(WORDS)
+                let theme = keys[Math.floor(Math.random() * keys.length)]
+                let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
+
+
+                mainWordSplited = mainWord.split("")
+                mainWordSplited.sort()
+                currentWord = mainWord
+                return {
+                    "theme": theme,
+                    "mainWord": mainWordSplited
+                }
+            }
+
+            function showWord() {
+                let riddle = newWord()
+
+                document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
+                document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
+            }
+
+
+            document.querySelector(".answerBtn").addEventListener("click", function() {
+                let userAnswer = document.querySelector(".userInp").value.toLowerCase()
+                console.log(currentWord)
+                console.log(userAnswer)
+                if (userAnswer === currentWord) totalScrore++
+
+                    else totalScrore--
+
+                        document.querySelector(".scoreG1").innerHTML = totalScrore
+                document.querySelector(".userInp").value = ""
+                showWord()
+            })
+
+        }
 
 
         // game 2 (aim trainer)
+        document.querySelector(".startGame1Btn").addEventListener("click", gameTwo)
 
-        let score = 0;
+        function gameTwo() {
 
-        for (let i = 1; i < 101; i++) {
-            let elem = document.createElement("div");
-            elem.setAttribute("class", `item${i} item`);
-            document.querySelector(".gridDiv").append(elem);
-        }
+            let score = 0;
 
-        setInterval(spawnObj, 1000);
-
-        function spawnObj() {
             for (let i = 1; i < 101; i++) {
-                document.querySelector(`.item${i}`).innerHTML = "";
+                let elem = document.createElement("div");
+                elem.setAttribute("class", `item${i} item`);
+                document.querySelector(".gridDiv").append(elem);
             }
 
-            let position = Math.floor(Math.random() * 101);
-            let target = document.querySelector(`.item${position}`);
-            target.innerHTML = "●";
+            setInterval(spawnObj, 1000);
 
-            target.addEventListener("click", function() {
-                score++;
-                document.querySelector(".score").innerHTML = score;
-            });
-
-            setTimeout(() => {
-                if (!target.innerHTML) {
-                    score--;
-                    document.querySelector(".score").innerHTML = score;
+            function spawnObj() {
+                for (let i = 1; i < 101; i++) {
+                    document.querySelector(`.item${i}`).innerHTML = "";
                 }
-            }, 999);
+
+                let position = Math.floor(Math.random() * 101);
+                let target = document.querySelector(`.item${position}`);
+                target.innerHTML = "●";
+
+                target.addEventListener("click", function() {
+                    score++;
+                    document.querySelector(".score").innerHTML = score;
+                });
+
+                setTimeout(() => {
+                    if (!target.innerHTML) {
+                        score--;
+                        document.querySelector(".score").innerHTML = score;
+                    }
+                }, 999);
+            }
         }
     </script>
 </body>
