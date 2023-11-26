@@ -32,6 +32,22 @@
             user-select: none;
         }
         
+        .clickG3 {
+            width: 20vw;
+            height: 20vw;
+            padding-right: 40px;
+            border: 2px solid rgb(255, 255, 255);
+            cursor: cell;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .clickG3>p {
+            margin-top: 40%;
+            color: black;
+        }
+        
         .item {
             font-size: 200%;
         }
@@ -80,8 +96,10 @@
         <div class="game1wrapper">
             <button class="startGame1Btn">PLAY!</button>
             <p>Aim trainer</p>
-            <p class="score"></p>
-            <div class="gridDiv"> </div>
+            <p class="score">0</p>
+            <div class="gridDiv">
+
+            </div>
 
         </div>
 
@@ -89,18 +107,31 @@
         <div class="game2wrapper">
             <button class="startGame2Btn">PLAY!</button>
             <p>Words</p>
-            <p class="scoreG1"></p>
+            <p class="scoreG1">0</p>
             <p class="theme">Theme : </p>
             <p class="mainWord">Letters : </p>
             <input type="text" name="" id="" class="userInp">
             <button class="answerBtn">Answer</button>
         </div>
 
+
         <div class="game3wrapper">
+            <button class="startGame3Btn">PLAY!</button>
+            <p>Clicker</p>
 
+            <p style="float: left;">Score: </p>
+            <p style="float: right;" class="scoreG3">0</p>
+            <br>
+            <p style="float: left;">Time left :
+                <p style="float: right;" class="timeG3">60</p>
+            </p>
+            <div class="clickG3">
+                <p>Click here to score points</p>
+            </div>
+            <p style="float: left;">CPS:
+                <p style="float: right;" class="cps">0</p>
+            </p>
         </div>
-
-
     </div>
 
 
@@ -200,6 +231,52 @@
                         document.querySelector(".score").innerHTML = score;
                     }
                 }, 999);
+            }
+            let restart = document.createElement("button")
+            restart.innerHTML = "restart"
+            document.setAttribute()
+            document.querySelector(".game1wrapper").append(restart)
+            document.querySelector(".restartG1btn").addEventListener("click", restartG1)
+
+            function restartG1() {
+                score = 0
+                console.log("SAasadsd")
+
+            }
+        }
+
+        //game 3 script
+        document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
+
+        function gameThree() {
+            let scoreG3 = 0;
+            let time = 10;
+            let clickArea = document.querySelector(".clickG3");
+
+            clickArea.addEventListener("click", clickCount);
+
+            function clickCount() {
+                scoreG3++;
+                document.querySelector(".scoreG3").innerHTML = scoreG3;
+                cpsCount();
+            }
+
+            const countdown = setInterval(timeCount, 1000);
+
+            function cpsCount() {
+                if (scoreG3 > 0) {
+                    let cps = scoreG3 / (10 - time);
+                    document.querySelector(".cps").innerHTML = Math.floor(cps)
+                }
+            }
+
+            function timeCount() {
+                time--;
+                document.querySelector(".timeG3").innerHTML = time;
+                if (time === 0) {
+                    clearInterval(countdown);
+                    cpsCount();
+                }
             }
         }
     </script>
