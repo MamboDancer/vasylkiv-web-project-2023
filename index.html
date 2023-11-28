@@ -67,7 +67,8 @@
         
         .game1wrapper,
         .game2wrapper,
-        .game3wrapper {
+        .game3wrapper,
+        .game4wrapper {
             border: 2px solid white;
             padding: 10px;
             margin: 10px;
@@ -75,6 +76,28 @@
         
         p {
             width: auto;
+        }
+        
+        .main-game {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            place-items: center;
+            width: 50vw;
+            height: 40vw;
+            margin: 0 auto;
+        }
+        
+        .checkbox {
+            background-color: blue;
+            width: 10vw;
+            height: 10vw;
+            border: 1px solid black;
+            font-size: 250%;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-weight: 900;
         }
     </style>
 
@@ -132,154 +155,242 @@
                 <p style="float: right;" class="cps">0</p>
             </p>
         </div>
-    </div>
+
+
+        <div class="game4wrapper">
+
+            <div class="main-game">
+
+            </div>
+
+
+        </div>
 
 
 
 
 
 
-    <script>
-        // game 1 (words)
-        document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
+        <script>
+            // game 1 (words)
+            document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
 
-        function gameOne() {
-            WORDS = {
-                "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
-                "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
-                "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
-                "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
-                "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
-            }
-            let currentWord = ""
-            let totalScrore = 0
-
-            showWord()
-
-
-            function newWord() {
-                let keys = Object.keys(WORDS)
-                let theme = keys[Math.floor(Math.random() * keys.length)]
-                let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
-
-
-                mainWordSplited = mainWord.split("")
-                mainWordSplited.sort()
-                currentWord = mainWord
-                return {
-                    "theme": theme,
-                    "mainWord": mainWordSplited
+            function gameOne() {
+                WORDS = {
+                    "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
+                    "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
+                    "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
+                    "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
+                    "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
                 }
-            }
+                let currentWord = ""
+                let totalScrore = 0
 
-            function showWord() {
-                let riddle = newWord()
-
-                document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
-                document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
-            }
-
-
-            document.querySelector(".answerBtn").addEventListener("click", function() {
-                let userAnswer = document.querySelector(".userInp").value.toLowerCase()
-                console.log(currentWord)
-                console.log(userAnswer)
-                if (userAnswer === currentWord) totalScrore++
-
-                    else totalScrore--
-
-                        document.querySelector(".scoreG1").innerHTML = totalScrore
-                document.querySelector(".userInp").value = ""
                 showWord()
-            })
-
-        }
 
 
-        // game 2 (aim trainer)
-        document.querySelector(".startGame1Btn").addEventListener("click", gameTwo)
+                function newWord() {
+                    let keys = Object.keys(WORDS)
+                    let theme = keys[Math.floor(Math.random() * keys.length)]
+                    let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
 
-        function gameTwo() {
 
-            let score = 0;
-
-            for (let i = 1; i < 101; i++) {
-                let elem = document.createElement("div");
-                elem.setAttribute("class", `item${i} item`);
-                document.querySelector(".gridDiv").append(elem);
-            }
-
-            setInterval(spawnObj, 1000);
-
-            function spawnObj() {
-                for (let i = 1; i < 101; i++) {
-                    document.querySelector(`.item${i}`).innerHTML = "";
-                }
-
-                let position = Math.floor(Math.random() * 101);
-                let target = document.querySelector(`.item${position}`);
-                target.innerHTML = "●";
-
-                target.addEventListener("click", function() {
-                    score++;
-                    document.querySelector(".score").innerHTML = score;
-                });
-
-                setTimeout(() => {
-                    if (!target.innerHTML) {
-                        score--;
-                        document.querySelector(".score").innerHTML = score;
+                    mainWordSplited = mainWord.split("")
+                    mainWordSplited.sort()
+                    currentWord = mainWord
+                    return {
+                        "theme": theme,
+                        "mainWord": mainWordSplited
                     }
-                }, 999);
-            }
-            let restart = document.createElement("button")
-            restart.innerHTML = "restart"
-            document.setAttribute()
-            document.querySelector(".game1wrapper").append(restart)
-            document.querySelector(".restartG1btn").addEventListener("click", restartG1)
+                }
 
-            function restartG1() {
-                score = 0
-                console.log("SAasadsd")
+                function showWord() {
+                    let riddle = newWord()
 
-            }
-        }
+                    document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
+                    document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
+                }
 
-        //game 3 script
-        document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
 
-        function gameThree() {
-            let scoreG3 = 0;
-            let time = 10;
-            let clickArea = document.querySelector(".clickG3");
+                document.querySelector(".answerBtn").addEventListener("click", function() {
+                    let userAnswer = document.querySelector(".userInp").value.toLowerCase()
+                    console.log(currentWord)
+                    console.log(userAnswer)
+                    if (userAnswer === currentWord) totalScrore++
 
-            clickArea.addEventListener("click", clickCount);
+                        else totalScrore--
 
-            function clickCount() {
-                scoreG3++;
-                document.querySelector(".scoreG3").innerHTML = scoreG3;
-                cpsCount();
+                            document.querySelector(".scoreG1").innerHTML = totalScrore
+                    document.querySelector(".userInp").value = ""
+                    showWord()
+                })
+
             }
 
-            const countdown = setInterval(timeCount, 1000);
 
-            function cpsCount() {
-                if (scoreG3 > 0) {
-                    let cps = scoreG3 / (10 - time);
-                    document.querySelector(".cps").innerHTML = Math.floor(cps)
+            // game 2 (aim trainer)
+            let playButton = document.querySelector(".startGame1Btn");
+
+            playButton.addEventListener("click", function() {
+                if (!playButton.classList.contains('gameStarted')) {
+                    playButton.classList.add('gameStarted');
+                    gameTwo();
+                }
+            });
+
+            function gameTwo() {
+                let score = 0;
+
+                for (let i = 1; i < 101; i++) {
+                    let elem = document.createElement("div");
+                    elem.setAttribute("class", `item${i} item`);
+                    document.querySelector(".gridDiv").append(elem);
+                }
+
+
+                let gameStarted = true;
+
+                setInterval(spawnObj, 1000);
+
+                function spawnObj() {
+                    for (let i = 1; i < 101; i++) {
+                        document.querySelector(`.item${i}`).innerHTML = "";
+                    }
+
+                    let position = Math.floor(Math.random() * 101);
+                    let target = document.querySelector(`.item${position}`);
+                    target.innerHTML = "●";
+
+                    target.addEventListener("click", function() {
+                        score++;
+                        document.querySelector(".score").innerHTML = score;
+                    });
+
+                    setTimeout(() => {
+                        if (!target.innerHTML) {
+                            score--;
+                            document.querySelector(".score").innerHTML = score;
+                        }
+                    }, 999);
+                }
+
+                let restart = document.createElement("button")
+                restart.innerHTML = "Restart"
+                document.querySelector(".game1wrapper").append(restart)
+                document.querySelector(".restartG1btn").addEventListener("click", restartG1)
+
+                function restartG1() {
+                    score = 0;
+                    clearInterval(spawnObj);
+
+
+                    for (let i = 1; i < 101; i++) {
+                        let elem = document.querySelector(`.item${i}`);
+                        if (elem) {
+                            elem.innerHTML = '';
+                            elem.removeEventListener('click', () => {});
+                        }
+                    }
+
+
+                    document.querySelector('.restartG1btn').removeEventListener('click', restartG1);
+                    document.querySelector('.game1wrapper').removeChild(restart);
+
+
+                    playButton.classList.remove('gameStarted');
                 }
             }
+            //game 3 script
+            document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
 
-            function timeCount() {
-                time--;
-                document.querySelector(".timeG3").innerHTML = time;
-                if (time === 0) {
-                    clearInterval(countdown);
+            function gameThree() {
+                let scoreG3 = 0;
+                let time = 10;
+                let clickArea = document.querySelector(".clickG3");
+
+                clickArea.addEventListener("click", clickCount);
+
+                function clickCount() {
+                    scoreG3++;
+                    document.querySelector(".scoreG3").innerHTML = scoreG3;
                     cpsCount();
                 }
+
+                const countdown = setInterval(timeCount, 1000);
+
+                function cpsCount() {
+                    if (scoreG3 > 0) {
+                        let cps = scoreG3 / (10 - time);
+                        document.querySelector(".cps").innerHTML = Math.floor(cps)
+                    }
+                }
+
+                function timeCount() {
+                    time--;
+                    document.querySelector(".timeG3").innerHTML = time;
+                    if (time === 0) {
+                        clearInterval(countdown);
+                        cpsCount();
+                    }
+                }
             }
-        }
-    </script>
+
+
+            // game 4 
+
+            let elarray = []
+
+            function initBoard() {
+                for (let i = 0; i < 9; i++) {
+                    let el = document.createElement("div")
+                    el.setAttribute("class", `checkbox checkbox${i}`)
+                    elarray.push(el)
+                    document.querySelector(".main-game").append(el)
+                }
+            }
+
+            function checkWin(ap) {
+                if (ap) ap = 'X'
+                else ap = 'O'
+                let els = 0
+                let s = 0
+                for (let i = 0; i < 9; i++) {
+                    if (elarray[i].innerHTML == ap) els++
+                        s++
+                        if (els == 3) return ap
+                    if (s == 3) {
+                        s = 0
+                        els = 0
+                    }
+                }
+                for (let c = 0; c < 3; c++) {
+                    let e = 0
+                    if (elarray[c].innerHTML == ap) e++
+                        if (elarray[c + 3].innerHTML == ap) e++
+                            if (elarray[c + 6].innerHTML == ap) e++
+                                if (e == 3) return ap
+                }
+                if (elarray[0].innerHTML == ap && elarray[4].innerHTML == ap && elarray[8].innerHTML == ap) return ap
+                if (elarray[2].innerHTML == ap && elarray[4].innerHTML == ap && elarray[6].innerHTML == ap) return ap
+                return 0
+            }
+            initBoard()
+            let activeplayer = true; // 0 - O , 1 - X
+            document.querySelectorAll(".checkbox").forEach((el) => {
+                el.addEventListener("click", function() {
+                    if (event.target.innerHTML) return
+                    if (activeplayer)
+                        event.target.innerHTML = 'X'
+                    else
+                        event.target.innerHTML = 'O'
+                    let game = checkWin(activeplayer)
+                    if (game)
+                        document.querySelector(".main-game").innerHTML = "Winner " + game
+                    else
+                        activeplayer = !activeplayer
+                })
+            })
+        </script>
 </body>
 
 </html>
