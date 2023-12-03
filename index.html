@@ -172,63 +172,14 @@
 
 
         <script>
-            // game 1 (words)
-            document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
-
-            function gameOne() {
-                WORDS = {
-                    "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
-                    "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
-                    "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
-                    "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
-                    "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
-                }
-                let currentWord = ""
-                let totalScrore = 0
-
-                showWord()
+            // global variables
 
 
-                function newWord() {
-                    let keys = Object.keys(WORDS)
-                    let theme = keys[Math.floor(Math.random() * keys.length)]
-                    let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
 
 
-                    mainWordSplited = mainWord.split("")
-                    mainWordSplited.sort()
-                    currentWord = mainWord
-                    return {
-                        "theme": theme,
-                        "mainWord": mainWordSplited
-                    }
-                }
-
-                function showWord() {
-                    let riddle = newWord()
-
-                    document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
-                    document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
-                }
 
 
-                document.querySelector(".answerBtn").addEventListener("click", function() {
-                    let userAnswer = document.querySelector(".userInp").value.toLowerCase()
-                    console.log(currentWord)
-                    console.log(userAnswer)
-                    if (userAnswer === currentWord) totalScrore++
-
-                        else totalScrore--
-
-                            document.querySelector(".scoreG1").innerHTML = totalScrore
-                    document.querySelector(".userInp").value = ""
-                    showWord()
-                })
-
-            }
-
-
-            // game 2 (aim trainer)
+            // GAME 1 AIM TRAINER   
             let playButton = document.querySelector(".startGame1Btn");
 
             playButton.addEventListener("click", function() {
@@ -240,6 +191,7 @@
 
             function gameTwo() {
                 let score = 0;
+                let gameStarted = true;
 
                 for (let i = 1; i < 101; i++) {
                     let elem = document.createElement("div");
@@ -248,8 +200,11 @@
                 }
 
 
-                let gameStarted = true;
 
+
+
+
+                // obj spawning
                 setInterval(spawnObj, 1000);
 
                 function spawnObj() {
@@ -274,6 +229,7 @@
                     }, 999);
                 }
 
+                //restert btn
                 let restart = document.createElement("button")
                 restart.innerHTML = "Restart"
                 document.querySelector(".game1wrapper").append(restart)
@@ -300,7 +256,68 @@
                     playButton.classList.remove('gameStarted');
                 }
             }
-            //game 3 script
+
+            //GAME 2  WORDS QUEST
+            document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
+
+            function gameOne() {
+                let currentWord = ""
+                let totalScrore = 0
+
+                WORDS = {
+                    "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
+                    "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
+                    "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
+                    "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
+                    "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
+                }
+
+                showWord()
+
+                //show start words
+                function showWord() {
+                    let riddle = newWord()
+
+                    document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
+                    document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
+                }
+
+                // make new word 
+                function newWord() {
+                    let keys = Object.keys(WORDS)
+                    let theme = keys[Math.floor(Math.random() * keys.length)]
+                    let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
+
+
+                    mainWordSplited = mainWord.split("")
+                    mainWordSplited.sort()
+                    currentWord = mainWord
+                    return {
+                        "theme": theme,
+                        "mainWord": mainWordSplited
+                    }
+                }
+
+                //check user answ
+                document.querySelector(".answerBtn").addEventListener("click", function() {
+                    let userAnswer = document.querySelector(".userInp").value.toLowerCase()
+                    console.log(currentWord)
+                    console.log(userAnswer)
+                    if (userAnswer === currentWord) totalScrore++
+
+                        else totalScrore--
+
+                            document.querySelector(".scoreG1").innerHTML = totalScrore
+                    document.querySelector(".userInp").value = ""
+                    showWord()
+                })
+
+
+
+            }
+
+
+            //  GAME 3 CLICKER  
             document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
 
             function gameThree() {
@@ -341,7 +358,7 @@
             }
 
 
-            // game 4 
+            // GAME 4 XO GAME   
 
             let elarray = []
 
