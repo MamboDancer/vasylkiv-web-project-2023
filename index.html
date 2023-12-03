@@ -311,9 +311,14 @@
                 clickArea.addEventListener("click", clickCount);
 
                 function clickCount() {
-                    scoreG3++;
-                    document.querySelector(".scoreG3").innerHTML = scoreG3;
-                    cpsCount();
+                    if (time >= 0) {
+                        scoreG3++;
+                        document.querySelector(".scoreG3").innerHTML = scoreG3;
+                        cpsCount();
+                    } else {
+                        alert("end of game")
+                    }
+
                 }
 
                 const countdown = setInterval(timeCount, 1000);
