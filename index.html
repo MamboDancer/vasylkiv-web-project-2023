@@ -99,6 +99,10 @@
             color: white;
             font-weight: 900;
         }
+        
+        .userInpGame5 {
+            width: 100px;
+        }
     </style>
 
 
@@ -164,6 +168,17 @@
             </div>
 
 
+
+
+
+        </div>
+
+        <div class="game5wrapper">
+            <button class="startGame5Btn">PLAY!</button>
+            <p>Typing trainer</p>
+            <input type="text" name="" class="userInpGame5">
+
+
         </div>
 
 
@@ -173,6 +188,89 @@
 
         <script>
             // global variables
+
+
+            //GAME 5 TYPING TRAINER 
+            let words = ['apple', 'happy', 'water', 'cloud', 'music', 'think', 'green', 'great',
+                'smile', 'world', 'laugh', 'beach', 'house', 'smart', 'dance', 'happy',
+                'cheer', 'light', 'sunny', 'party', 'enjoy', 'peace', 'sweet', 'heart',
+                'small', 'brave', 'clean', 'fresh', 'color', 'bread', 'early', 'funny',
+                'spoon', 'dream', 'hello', 'money', 'night', 'quiet', 'sleep', 'teeth',
+                'woman', 'write', 'child', 'happy', 'sunny', 'radio', 'clean', 'flower'
+            ]
+
+            let currentWords = []
+
+            function fillInCurent() {
+                for (let i = 0; i < 5; i++) {
+                    let wrld = words[Math.floor(Math.random() * 50)]
+                    currentWords.push(wrld)
+                    console.log(currentWords[i])
+                }
+            }
+
+
+            // треба дороюити зчитування інпута від юзера
+            /* function readAnsw() {
+                 let userInpGame5 = document.querySelector(".userInpGame5")
+                 let userInpGame5Value = document.querySelector(".userInpGame5").value
+                 console.log(userInpGame5Value)
+                 userInpGame5.addEventListener("keypress", function(event) {
+                     if (event.key === "Enter") {
+                         newToWords()
+                         if (userInpGame5Value == currentWords[0]) {
+                             // console.log("true")
+                             newToWords()
+                         } else {
+                             // console.log("false")
+                             //console.log(currentWords[0], "current")
+                             //  console.log(userInpGame5Value, "input")
+                         }
+
+
+                         event.preventDefault();
+                     }
+                 });
+             }*/
+
+            function readAnsw() {
+                let userInpGame5 = document.querySelector(".userInpGame5");
+
+                userInpGame5.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") {
+                        let userInpGame5Value = userInpGame5.value; // Capture the value inside the event listener
+                        console.log(userInpGame5Value);
+
+                        newToWords();
+
+                        if (userInpGame5Value === currentWords[0]) {
+                            newToWords();
+                            console.log("true")
+                        } else {
+                            console.log("false")
+                            console.log(currentWords[0], "current")
+                            console.log(userInpGame5Value, "input")
+                        }
+
+                        event.preventDefault();
+                    }
+                });
+            }
+
+            //function to add new words to current , when old already used
+            function newToWords() {
+                let newWord = words[Math.floor(Math.random() * 50)];
+                currentWords.push(newWord);
+                currentWords.shift(); // Invoking shift() to remove the first element
+                console.log(currentWords);
+            }
+            document.querySelector(".startGame5Btn").addEventListener("click", function() {
+                fillInCurent()
+
+                document.querySelector(".userInpGame5").addEventListener("keypress", readAnsw())
+
+            })
+
 
 
 
