@@ -176,6 +176,8 @@
         <div class="game5wrapper">
             <button class="startGame5Btn">PLAY!</button>
             <p>Typing trainer</p>
+            <p class="game5Score"></p>
+            <p class="currentHtml"></p>
             <input type="text" name="" class="userInpGame5">
 
 
@@ -191,65 +193,63 @@
 
 
             //GAME 5 TYPING TRAINER 
-            let words = ['apple', 'happy', 'water', 'cloud', 'music', 'think', 'green', 'great',
-                'smile', 'world', 'laugh', 'beach', 'house', 'smart', 'dance', 'happy',
-                'cheer', 'light', 'sunny', 'party', 'enjoy', 'peace', 'sweet', 'heart',
-                'small', 'brave', 'clean', 'fresh', 'color', 'bread', 'early', 'funny',
-                'spoon', 'dream', 'hello', 'money', 'night', 'quiet', 'sleep', 'teeth',
-                'woman', 'write', 'child', 'happy', 'sunny', 'radio', 'clean', 'flower'
+            let words = ['also', 'area', 'away', 'back', 'been', 'best', 'both', 'call', 'came', 'come',
+                'could', 'down', 'each', 'even', 'find', 'first', 'from', 'good', 'great', 'have',
+                'help', 'herd', 'here', 'into', 'just', 'know', 'last', 'left', 'like', 'line',
+                'long', 'made', 'make', 'many', 'mean', 'more', 'most', 'much', 'must', 'name',
+                'need', 'next', 'once', 'only', 'open', 'over', 'part', 'past', 'play', 'read',
+                'right', 'same', 'said', 'show', 'some', 'soon', 'such', 'sure', 'take', 'tell',
+                'than', 'that', 'them', 'then', 'they', 'this', 'time', 'turn', 'very', 'want',
+                'well', 'went', 'were', 'what', 'when', 'will', 'with', 'work', 'your',
+
+                'able', 'acid', 'aged', 'also', 'arms', 'away', 'base', 'been', 'belt', 'best',
+                'bill', 'blue', 'bowl', 'burn', 'call', 'came', 'card', 'cell', 'coal', 'come',
+                'cook', 'cool', 'copy', 'cost', 'dark', 'date', 'dead', 'deep', 'done', 'door',
+                'draw', 'drop', 'east', 'else', 'even', 'ever', 'face', 'fall', 'fast', 'fell',
+                'file', 'fill', 'find', 'fine', 'fire', 'firm', 'fish', 'five', 'flat', 'flow',
+
             ]
 
             let currentWords = []
 
+            let scoreGame5 = 0
+
+
             function fillInCurent() {
                 for (let i = 0; i < 5; i++) {
-                    let wrld = words[Math.floor(Math.random() * 50)]
+                    let wrld = words[Math.floor(Math.random() * words.length)]
                     currentWords.push(wrld)
                     console.log(currentWords[i])
                 }
+                document.querySelector(".currentHtml").innerHTML = currentWords
+                document.querySelector(".game5Score").innerHTML = scoreGame5
             }
 
-
-            // треба дороюити зчитування інпута від юзера
-            /* function readAnsw() {
-                 let userInpGame5 = document.querySelector(".userInpGame5")
-                 let userInpGame5Value = document.querySelector(".userInpGame5").value
-                 console.log(userInpGame5Value)
-                 userInpGame5.addEventListener("keypress", function(event) {
-                     if (event.key === "Enter") {
-                         newToWords()
-                         if (userInpGame5Value == currentWords[0]) {
-                             // console.log("true")
-                             newToWords()
-                         } else {
-                             // console.log("false")
-                             //console.log(currentWords[0], "current")
-                             //  console.log(userInpGame5Value, "input")
-                         }
-
-
-                         event.preventDefault();
-                     }
-                 });
-             }*/
 
             function readAnsw() {
                 let userInpGame5 = document.querySelector(".userInpGame5");
 
                 userInpGame5.addEventListener("keypress", function(event) {
-                    if (event.key === "Enter") {
-                        let userInpGame5Value = userInpGame5.value; // Capture the value inside the event listener
+                    if (event.key === "Enter" || event.key === " ") {
+                        let userInpGame5Value = userInpGame5.value;
                         console.log(userInpGame5Value);
 
-                        newToWords();
 
-                        if (userInpGame5Value === currentWords[0]) {
-                            newToWords();
+
+                        if (userInpGame5Value == currentWords[0]) {
                             console.log("true")
+                            newToWords();
+                            userInpGame5.value = ""
+                            scoreGame5++
+                            document.querySelector(".game5Score").innerHTML = scoreGame5
                         } else {
                             console.log("false")
-                            console.log(currentWords[0], "current")
-                            console.log(userInpGame5Value, "input")
+                            console.log(currentWords[0], ":  current")
+                            console.log(userInpGame5Value, ":  input")
+                            newToWords();
+                            userInpGame5.value = ""
+                            scoreGame5 = scoreGame5 - 1
+                            document.querySelector(".game5Score").innerHTML = scoreGame5
                         }
 
                         event.preventDefault();
@@ -263,7 +263,11 @@
                 currentWords.push(newWord);
                 currentWords.shift(); // Invoking shift() to remove the first element
                 console.log(currentWords);
+                document.querySelector(".currentHtml").innerHTML = currentWords
+
             }
+
+
             document.querySelector(".startGame5Btn").addEventListener("click", function() {
                 fillInCurent()
 
@@ -321,7 +325,7 @@
 
                     setTimeout(() => {
                         if (!target.innerHTML) {
-                            score--;
+                            score = score - 1;
                             document.querySelector(".score").innerHTML = score;
                         }
                     }, 999);
