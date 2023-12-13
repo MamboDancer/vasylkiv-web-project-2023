@@ -68,7 +68,9 @@
         .game1wrapper,
         .game2wrapper,
         .game3wrapper,
-        .game4wrapper {
+        .game4wrapper,
+        .game5wrapper,
+        .game6wrapper {
             border: 2px solid white;
             padding: 10px;
             margin: 10px;
@@ -150,7 +152,7 @@
             <p style="float: right;" class="scoreG3">0</p>
             <br>
             <p style="float: left;">Time left :
-                <p style="float: right;" class="timeG3">60</p>
+                <p style="float: right;" class="timeG3">10</p>
             </p>
             <div class="clickG3">
                 <p>Click here to score points</p>
@@ -172,7 +174,6 @@
 
 
         </div>
-
         <div class="game5wrapper">
             <button class="startGame5Btn">PLAY!</button>
             <p>Typing trainer</p>
@@ -183,338 +184,475 @@
 
         </div>
 
+        <div class="game6wrapper">
+            <button class="startGame6Btn">PLAY!</button>
+            <p>Victorine true/false</p>
+            <p style="float: left;">Score : </p>
+            <p style="float: right;" class="scoreG6">0</p>
+            <br>
+
+            <p style="float: right;" class="questionG6"></p>
+            <br>
+            <br>
+            <input type="text" name="" class="userInpGame6">
+        </div>
+
+    </div>
 
 
 
 
 
-        <script>
-            // global variables
+    <script>
+        // global variables
+
+        //  GAME 6 , VICTORINE TRUE FALSE   
+        const questions = [
+            "Рим - столиця Франції?",
+            "'Гаррі Поттер' написано Джоан Роулінг?",
+            "Тихий океан - найдовший океан на Землі?",
+            "Юпітер - найбільша планета у Сонячній системі?",
+            "'www' у веб-адресах означає 'World Wide Web'?",
+            "Уругвай виграв перший чемпіонат світу з футболу?",
+            "'NASA' - абревіатура для 'National Aeronautics and Space Administration'?",
+            "Альберт Ейнштейн вважається батьком сучасного фізики?",
+            "Книга після Біблії є найбільш проданою книгою у світі?",
+            "Годинник використовується для вимірювання тиску?",
+            "Тихий океан - найбільший океан на Землі?",
+            "'Au' у хімії означає срібло?",
+            "Хікарі у японській мові означає темний?",
+            "Програма для антивірусного захисту захищає комп'ютер від вірусів?",
+            "Фотосинтез - процес, коли рослини створюють їжу зі сонячного світла?",
+            "Лев Толстой написав 'Війна і мир'?",
+            "Китай - країна з найбільшою кількістю людей?",
+            "'HTML' означає 'HyperText Markup Language'?",
+            "'UNICEF' - абревіатура для 'United Nations International Children's Emergency Fund'?",
+            "Озеро Вікторія - найбільше озеро в Африці?",
+            "Альберт Ейнштейн написав теорію відносності?",
+            "Амазонка - найбільше річище на планеті?",
+            "Африка - найбільший материк?",
+            "'ETC' у англійській мові означає 'Екстермінація'?",
+            "Карл Маркс написав 'Революцію'?",
+            "Італія відома своїми піццами та пастою?",
+            "'PDF' - абревіатура для 'Portable Document Format'?",
+            "Ніагара - найбільший водоспад на планеті?",
+            "Програма 'Photoshop' редагує фотографії?",
+            "Легені є головним органом дихання у людини?"
+        ];
+        let num;
 
 
-            //GAME 5 TYPING TRAINER 
-            let words = ['also', 'area', 'away', 'back', 'been', 'best', 'both', 'call', 'came', 'come',
-                'could', 'down', 'each', 'even', 'find', 'first', 'from', 'good', 'great', 'have',
-                'help', 'herd', 'here', 'into', 'just', 'know', 'last', 'left', 'like', 'line',
-                'long', 'made', 'make', 'many', 'mean', 'more', 'most', 'much', 'must', 'name',
-                'need', 'next', 'once', 'only', 'open', 'over', 'part', 'past', 'play', 'read',
-                'right', 'same', 'said', 'show', 'some', 'soon', 'such', 'sure', 'take', 'tell',
-                'than', 'that', 'them', 'then', 'they', 'this', 'time', 'turn', 'very', 'want',
-                'well', 'went', 'were', 'what', 'when', 'will', 'with', 'work', 'your',
-
-                'able', 'acid', 'aged', 'also', 'arms', 'away', 'base', 'been', 'belt', 'best',
-                'bill', 'blue', 'bowl', 'burn', 'call', 'came', 'card', 'cell', 'coal', 'come',
-                'cook', 'cool', 'copy', 'cost', 'dark', 'date', 'dead', 'deep', 'done', 'door',
-                'draw', 'drop', 'east', 'else', 'even', 'ever', 'face', 'fall', 'fast', 'fell',
-                'file', 'fill', 'find', 'fine', 'fire', 'firm', 'fish', 'five', 'flat', 'flow',
-
-            ]
-
-            let currentWords = []
-
-            let scoreGame5 = 0
+        const answers = ["false", "true", "true", "true", "true", "false", "true", "true", "false", "false", "true", "false", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "false", "true", "true", "true", "true", "true", "true"];
 
 
-            function fillInCurent() {
-                for (let i = 0; i < 5; i++) {
-                    let wrld = words[Math.floor(Math.random() * words.length)]
-                    currentWords.push(wrld)
-                    console.log(currentWords[i])
+
+
+        document.querySelector(".startGame6Btn").addEventListener("click", startGame6);
+
+
+        function startGame6() {
+            num = Math.floor(Math.random() * questions.length);
+            let currentQuestion = questions[num];
+            document.querySelector(".questionG6").innerHTML = currentQuestion;
+            questions.splice(num, 1);
+
+            let userInpGame6 = document.querySelector(".userInpGame6");
+
+            userInpGame6.addEventListener("keypress", checkGame6);
+            answers[num]
+        }
+
+        function checkGame6(event) {
+            if (event.key === "Enter" || event.key === " ") {
+                let userInpGame6 = document.querySelector(".userInpGame6");
+                if (userInpGame6.value == answers[num]) {
+                    console.log("win");
+                } else {
+                    console.log("lose");
+                    console.log(answers[num])
                 }
-                document.querySelector(".currentHtml").innerHTML = currentWords
-                document.querySelector(".game5Score").innerHTML = scoreGame5
+                event.preventDefault();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function newQuestionG6() {
+            let newQuestion = questions[Math.floor(Math.random() * questions.length)]
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // GAME 1 AIM TRAINER   
+        let playButton = document.querySelector(".startGame1Btn");
+
+        playButton.addEventListener("click", function() {
+            if (!playButton.classList.contains('gameStarted')) {
+                playButton.classList.add('gameStarted');
+                gameTwo();
+            }
+        });
+
+        function gameTwo() {
+            let score = 0;
+            let gameStarted = true;
+
+            for (let i = 1; i < 101; i++) {
+                let elem = document.createElement("div");
+                elem.setAttribute("class", `item${i} item`);
+                document.querySelector(".gridDiv").append(elem);
             }
 
 
-            function readAnsw() {
-                let userInpGame5 = document.querySelector(".userInpGame5");
-
-                userInpGame5.addEventListener("keypress", function(event) {
-                    if (event.key === "Enter" || event.key === " ") {
-                        let userInpGame5Value = userInpGame5.value;
-                        console.log(userInpGame5Value);
 
 
 
-                        if (userInpGame5Value == currentWords[0]) {
-                            console.log("true")
-                            newToWords();
-                            userInpGame5.value = ""
-                            scoreGame5++
-                            document.querySelector(".game5Score").innerHTML = scoreGame5
-                        } else {
-                            console.log("false")
-                            console.log(currentWords[0], ":  current")
-                            console.log(userInpGame5Value, ":  input")
-                            newToWords();
-                            userInpGame5.value = ""
-                            scoreGame5 = scoreGame5 - 1
-                            document.querySelector(".game5Score").innerHTML = scoreGame5
-                        }
 
-                        event.preventDefault();
-                    }
+            // obj spawning
+            setInterval(spawnObj, 1000);
+
+            function spawnObj() {
+                for (let i = 1; i < 101; i++) {
+                    document.querySelector(`.item${i}`).innerHTML = "";
+                }
+
+                let position = Math.floor(Math.random() * 101);
+                let target = document.querySelector(`.item${position}`);
+                target.innerHTML = "●";
+
+                target.addEventListener("click", function() {
+                    score++;
+                    document.querySelector(".score").innerHTML = score;
                 });
+
+                setTimeout(() => {
+                    if (!target.innerHTML) {
+                        score = score - 1;
+                        document.querySelector(".score").innerHTML = score;
+                    }
+                }, 999);
             }
 
-            //function to add new words to current , when old already used
-            function newToWords() {
-                let newWord = words[Math.floor(Math.random() * 50)];
-                currentWords.push(newWord);
-                currentWords.shift(); // Invoking shift() to remove the first element
-                console.log(currentWords);
-                document.querySelector(".currentHtml").innerHTML = currentWords
+            //restert btn
+            let restart = document.createElement("button")
+            restart.innerHTML = "Restart"
+            document.querySelector(".game1wrapper").append(restart)
+            document.querySelector(".restartG1btn").addEventListener("click", restartG1)
 
-            }
+            function restartG1() {
+                score = 0;
+                clearInterval(spawnObj);
 
-
-            document.querySelector(".startGame5Btn").addEventListener("click", function() {
-                fillInCurent()
-
-                document.querySelector(".userInpGame5").addEventListener("keypress", readAnsw())
-
-            })
-
-
-
-
-
-
-
-            // GAME 1 AIM TRAINER   
-            let playButton = document.querySelector(".startGame1Btn");
-
-            playButton.addEventListener("click", function() {
-                if (!playButton.classList.contains('gameStarted')) {
-                    playButton.classList.add('gameStarted');
-                    gameTwo();
-                }
-            });
-
-            function gameTwo() {
-                let score = 0;
-                let gameStarted = true;
 
                 for (let i = 1; i < 101; i++) {
-                    let elem = document.createElement("div");
-                    elem.setAttribute("class", `item${i} item`);
-                    document.querySelector(".gridDiv").append(elem);
+                    let elem = document.querySelector(`.item${i}`);
+                    if (elem) {
+                        elem.innerHTML = '';
+                        elem.removeEventListener('click', () => {});
+                    }
                 }
 
 
+                document.querySelector('.restartG1btn').removeEventListener('click', restartG1);
+                document.querySelector('.game1wrapper').removeChild(restart);
 
 
+                playButton.classList.remove('gameStarted');
+            }
+        }
+
+        //GAME 2  WORDS QUEST
+        document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
+
+        function gameOne() {
+            let currentWord = ""
+            let totalScrore = 0
+
+            WORDS = {
+                "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
+                "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
+                "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
+                "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
+                "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
+            }
+
+            showWord()
+
+            //show start words
+            function showWord() {
+                let riddle = newWord()
+
+                document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
+                document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
+            }
+
+            // make new word 
+            function newWord() {
+                let keys = Object.keys(WORDS)
+                let theme = keys[Math.floor(Math.random() * keys.length)]
+                let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
 
 
-                // obj spawning
-                setInterval(spawnObj, 1000);
-
-                function spawnObj() {
-                    for (let i = 1; i < 101; i++) {
-                        document.querySelector(`.item${i}`).innerHTML = "";
-                    }
-
-                    let position = Math.floor(Math.random() * 101);
-                    let target = document.querySelector(`.item${position}`);
-                    target.innerHTML = "●";
-
-                    target.addEventListener("click", function() {
-                        score++;
-                        document.querySelector(".score").innerHTML = score;
-                    });
-
-                    setTimeout(() => {
-                        if (!target.innerHTML) {
-                            score = score - 1;
-                            document.querySelector(".score").innerHTML = score;
-                        }
-                    }, 999);
-                }
-
-                //restert btn
-                let restart = document.createElement("button")
-                restart.innerHTML = "Restart"
-                document.querySelector(".game1wrapper").append(restart)
-                document.querySelector(".restartG1btn").addEventListener("click", restartG1)
-
-                function restartG1() {
-                    score = 0;
-                    clearInterval(spawnObj);
-
-
-                    for (let i = 1; i < 101; i++) {
-                        let elem = document.querySelector(`.item${i}`);
-                        if (elem) {
-                            elem.innerHTML = '';
-                            elem.removeEventListener('click', () => {});
-                        }
-                    }
-
-
-                    document.querySelector('.restartG1btn').removeEventListener('click', restartG1);
-                    document.querySelector('.game1wrapper').removeChild(restart);
-
-
-                    playButton.classList.remove('gameStarted');
+                mainWordSplited = mainWord.split("")
+                mainWordSplited.sort()
+                currentWord = mainWord
+                return {
+                    "theme": theme,
+                    "mainWord": mainWordSplited
                 }
             }
 
-            //GAME 2  WORDS QUEST
-            document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
+            //check user answ
+            document.querySelector(".answerBtn").addEventListener("click", function() {
+                let userAnswer = document.querySelector(".userInp").value.toLowerCase()
+                console.log(currentWord)
+                console.log(userAnswer)
+                if (userAnswer === currentWord) totalScrore++
 
-            function gameOne() {
-                let currentWord = ""
-                let totalScrore = 0
+                    else totalScrore--
 
-                WORDS = {
-                    "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
-                    "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
-                    "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
-                    "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
-                    "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
-                }
-
+                        document.querySelector(".scoreG1").innerHTML = totalScrore
+                document.querySelector(".userInp").value = ""
                 showWord()
-
-                //show start words
-                function showWord() {
-                    let riddle = newWord()
-
-                    document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
-                    document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
-                }
-
-                // make new word 
-                function newWord() {
-                    let keys = Object.keys(WORDS)
-                    let theme = keys[Math.floor(Math.random() * keys.length)]
-                    let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
-
-
-                    mainWordSplited = mainWord.split("")
-                    mainWordSplited.sort()
-                    currentWord = mainWord
-                    return {
-                        "theme": theme,
-                        "mainWord": mainWordSplited
-                    }
-                }
-
-                //check user answ
-                document.querySelector(".answerBtn").addEventListener("click", function() {
-                    let userAnswer = document.querySelector(".userInp").value.toLowerCase()
-                    console.log(currentWord)
-                    console.log(userAnswer)
-                    if (userAnswer === currentWord) totalScrore++
-
-                        else totalScrore--
-
-                            document.querySelector(".scoreG1").innerHTML = totalScrore
-                    document.querySelector(".userInp").value = ""
-                    showWord()
-                })
-
-
-
-            }
-
-
-            //  GAME 3 CLICKER  
-            document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
-
-            function gameThree() {
-                let scoreG3 = 0;
-                let time = 10;
-                let clickArea = document.querySelector(".clickG3");
-
-                clickArea.addEventListener("click", clickCount);
-
-                function clickCount() {
-                    if (time >= 0) {
-                        scoreG3++;
-                        document.querySelector(".scoreG3").innerHTML = scoreG3;
-                        cpsCount();
-                    } else {
-                        alert("end of game")
-                    }
-
-                }
-
-                const countdown = setInterval(timeCount, 1000);
-
-                function cpsCount() {
-                    if (scoreG3 > 0) {
-                        let cps = scoreG3 / (10 - time);
-                        document.querySelector(".cps").innerHTML = Math.floor(cps)
-                    }
-                }
-
-                function timeCount() {
-                    time--;
-                    document.querySelector(".timeG3").innerHTML = time;
-                    if (time === 0) {
-                        clearInterval(countdown);
-                        cpsCount();
-                    }
-                }
-            }
-
-
-            // GAME 4 XO GAME   
-
-            let elarray = []
-
-            function initBoard() {
-                for (let i = 0; i < 9; i++) {
-                    let el = document.createElement("div")
-                    el.setAttribute("class", `checkbox checkbox${i}`)
-                    elarray.push(el)
-                    document.querySelector(".main-game").append(el)
-                }
-            }
-
-            function checkWin(ap) {
-                if (ap) ap = 'X'
-                else ap = 'O'
-                let els = 0
-                let s = 0
-                for (let i = 0; i < 9; i++) {
-                    if (elarray[i].innerHTML == ap) els++
-                        s++
-                        if (els == 3) return ap
-                    if (s == 3) {
-                        s = 0
-                        els = 0
-                    }
-                }
-                for (let c = 0; c < 3; c++) {
-                    let e = 0
-                    if (elarray[c].innerHTML == ap) e++
-                        if (elarray[c + 3].innerHTML == ap) e++
-                            if (elarray[c + 6].innerHTML == ap) e++
-                                if (e == 3) return ap
-                }
-                if (elarray[0].innerHTML == ap && elarray[4].innerHTML == ap && elarray[8].innerHTML == ap) return ap
-                if (elarray[2].innerHTML == ap && elarray[4].innerHTML == ap && elarray[6].innerHTML == ap) return ap
-                return 0
-            }
-            initBoard()
-            let activeplayer = true; // 0 - O , 1 - X
-            document.querySelectorAll(".checkbox").forEach((el) => {
-                el.addEventListener("click", function() {
-                    if (event.target.innerHTML) return
-                    if (activeplayer)
-                        event.target.innerHTML = 'X'
-                    else
-                        event.target.innerHTML = 'O'
-                    let game = checkWin(activeplayer)
-                    if (game)
-                        document.querySelector(".main-game").innerHTML = "Winner " + game
-                    else
-                        activeplayer = !activeplayer
-                })
             })
-        </script>
+
+
+
+        }
+
+
+        //  GAME 3 CLICKER  
+        document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
+
+        function gameThree() {
+            let scoreG3 = 0;
+            let time = 10;
+            let clickArea = document.querySelector(".clickG3");
+            let countdown;
+
+            clickArea.addEventListener("click", clickCount);
+
+            function clickCount() {
+                if (time >= 0) {
+                    scoreG3++;
+                    document.querySelector(".scoreG3").innerHTML = scoreG3;
+                    cpsCount();
+                }
+            }
+
+            function cpsCount() {
+                if (time > 0) {
+                    let cps = scoreG3 / (10 - time);
+                    document.querySelector(".cps").innerHTML = Math.floor(cps);
+                }
+            }
+
+            function timeCount() {
+                time--;
+                document.querySelector(".timeG3").innerHTML = time;
+                if (time === 0) {
+                    clearInterval(countdown);
+                    clickArea.removeEventListener("click", clickCount);
+                    cpsCount(); // Update CPS one final time
+                    alert("End of game");
+                }
+            }
+
+            countdown = setInterval(timeCount, 1000);
+        }
+
+
+        // GAME 4 XO GAME   
+
+        let elarray = []
+
+        function initBoard() {
+            for (let i = 0; i < 9; i++) {
+                let el = document.createElement("div")
+                el.setAttribute("class", `checkbox checkbox${i}`)
+                elarray.push(el)
+                document.querySelector(".main-game").append(el)
+            }
+        }
+
+        function checkWin(ap) {
+            if (ap) ap = 'X'
+            else ap = 'O'
+            let els = 0
+            let s = 0
+            for (let i = 0; i < 9; i++) {
+                if (elarray[i].innerHTML == ap) els++
+                    s++
+                    if (els == 3) return ap
+                if (s == 3) {
+                    s = 0
+                    els = 0
+                }
+            }
+            for (let c = 0; c < 3; c++) {
+                let e = 0
+                if (elarray[c].innerHTML == ap) e++
+                    if (elarray[c + 3].innerHTML == ap) e++
+                        if (elarray[c + 6].innerHTML == ap) e++
+                            if (e == 3) return ap
+            }
+            if (elarray[0].innerHTML == ap && elarray[4].innerHTML == ap && elarray[8].innerHTML == ap) return ap
+            if (elarray[2].innerHTML == ap && elarray[4].innerHTML == ap && elarray[6].innerHTML == ap) return ap
+            return 0
+        }
+        initBoard()
+        let activeplayer = true; // 0 - O , 1 - X
+        document.querySelectorAll(".checkbox").forEach((el) => {
+            el.addEventListener("click", function() {
+                if (event.target.innerHTML) return
+                if (activeplayer)
+                    event.target.innerHTML = 'X'
+                else
+                    event.target.innerHTML = 'O'
+                let game = checkWin(activeplayer)
+                if (game)
+                    document.querySelector(".main-game").innerHTML = "Winner " + game
+                else
+                    activeplayer = !activeplayer
+            })
+        })
+
+
+
+
+        //GAME 5 TYPING TRAINER 
+        let words = ['also', 'area', 'away', 'back', 'been', 'best', 'both', 'call', 'came', 'come',
+            'could', 'down', 'each', 'even', 'find', 'first', 'from', 'good', 'great', 'have',
+            'help', 'herd', 'here', 'into', 'just', 'know', 'last', 'left', 'like', 'line',
+            'long', 'made', 'make', 'many', 'mean', 'more', 'most', 'much', 'must', 'name',
+            'need', 'next', 'once', 'only', 'open', 'over', 'part', 'past', 'play', 'read',
+            'right', 'same', 'said', 'show', 'some', 'soon', 'such', 'sure', 'take', 'tell',
+            'than', 'that', 'them', 'then', 'they', 'this', 'time', 'turn', 'very', 'want',
+            'well', 'went', 'were', 'what', 'when', 'will', 'with', 'work', 'your',
+
+            'able', 'acid', 'aged', 'also', 'arms', 'away', 'base', 'been', 'belt', 'best',
+            'bill', 'blue', 'bowl', 'burn', 'call', 'came', 'card', 'cell', 'coal', 'come',
+            'cook', 'cool', 'copy', 'cost', 'dark', 'date', 'dead', 'deep', 'done', 'door',
+            'draw', 'drop', 'east', 'else', 'even', 'ever', 'face', 'fall', 'fast', 'fell',
+            'file', 'fill', 'find', 'fine', 'fire', 'firm', 'fish', 'five', 'flat', 'flow',
+
+        ]
+
+        let currentWords = []
+
+        let scoreGame5 = 0
+
+
+        function fillInCurent() {
+            for (let i = 0; i < 5; i++) {
+                let wrld = words[Math.floor(Math.random() * words.length)]
+                currentWords.push(wrld)
+                console.log(currentWords[i])
+            }
+            document.querySelector(".currentHtml").innerHTML = currentWords
+            document.querySelector(".game5Score").innerHTML = scoreGame5
+        }
+
+
+        function readAnsw() {
+            let userInpGame5 = document.querySelector(".userInpGame5");
+
+            userInpGame5.addEventListener("keypress", function(event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    let userInpGame5Value = userInpGame5.value;
+                    console.log(userInpGame5Value);
+
+
+
+                    if (userInpGame5Value == currentWords[0]) {
+                        console.log("true")
+                        newToWords();
+                        userInpGame5.value = ""
+                        scoreGame5++
+                        document.querySelector(".game5Score").innerHTML = scoreGame5
+                    } else {
+                        console.log("false")
+                        console.log(currentWords[0], ":  current")
+                        console.log(userInpGame5Value, ":  input")
+                        newToWords();
+                        userInpGame5.value = ""
+                        scoreGame5 = scoreGame5 - 1
+                        document.querySelector(".game5Score").innerHTML = scoreGame5
+                    }
+
+                    event.preventDefault();
+                }
+            });
+        }
+
+        //function to add new words to current , when old already used
+        function newToWords() {
+            let newWord = words[Math.floor(Math.random() * 50)];
+            currentWords.push(newWord);
+            currentWords.shift(); // Invoking shift() to remove the first element
+            console.log(currentWords);
+            document.querySelector(".currentHtml").innerHTML = currentWords
+
+        }
+
+
+        document.querySelector(".startGame5Btn").addEventListener("click", function() {
+            fillInCurent()
+
+            document.querySelector(".userInpGame5").addEventListener("keypress", readAnsw())
+
+        })
+    </script>
 </body>
 
 </html>
