@@ -7,7 +7,7 @@
         /*main styles*/
         
         body {
-            background-color: rgb(3, 10, 107);
+            background-color: rgb(0, 0, 0);
             color: whitesmoke;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
@@ -70,7 +70,8 @@
         .game3wrapper,
         .game4wrapper,
         .game5wrapper,
-        .game6wrapper {
+        .game6wrapper,
+        .game7wrapper {
             border: 2px solid white;
             padding: 10px;
             margin: 10px;
@@ -104,6 +105,12 @@
         
         .userInpGame5 {
             width: 100px;
+        }
+        
+        .game7wrapper .game-wrapper {
+            display: grid;
+            background-color: blue;
+            grid-template-columns: repeat(2, 1fr);
         }
     </style>
 
@@ -195,6 +202,41 @@
             <br>
             <br>
             <input type="text" name="" class="userInpGame6">
+            <button class="restartG6">Restart</button>
+        </div>
+
+
+        <div class="game7wrapper">
+            <button class="startGame7">PLAY!</button>
+            <p class="game-header">PC Clicker</p>
+            <div class="game-wrapper">
+                <div class="game">
+                    <p class="clicks">Clicks: 0</p>
+                    <p class="clickspersecond">CPS: 0</p>
+                    <button class="clicker-button" style="background-color: rgba(0,0,0,0);font-size: 6vw">🖥</button>
+                </div>
+                <div class="upgrades">
+                    <p>Upgrades:</p>
+                    <button class="upgrade-clicks"></button>
+                    <button class="upgrade-cps"></button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="game8wrapper">
+            <button class="startGame8Btn">PLAY!</button>
+            <p>Math problem</p>
+            <p style="float: left;">Score : </p>
+            <p style="float: right;" class="scoreG8">0</p>
+            <br>
+
+            <p style="float: right;" class="questionG8"></p>
+            <br>
+            <br>
+            <input type="text" name="" class="userInpGame8">
+            <button class="restartG8">Restart</button>
         </div>
 
     </div>
@@ -205,131 +247,6 @@
 
     <script>
         // global variables
-
-        //  GAME 6 , VICTORINE TRUE FALSE   
-        const questions = [
-            "Рим - столиця Франції?",
-            "'Гаррі Поттер' написано Джоан Роулінг?",
-            "Тихий океан - найдовший океан на Землі?",
-            "Юпітер - найбільша планета у Сонячній системі?",
-            "'www' у веб-адресах означає 'World Wide Web'?",
-            "Уругвай виграв перший чемпіонат світу з футболу?",
-            "'NASA' - абревіатура для 'National Aeronautics and Space Administration'?",
-            "Альберт Ейнштейн вважається батьком сучасного фізики?",
-            "Книга після Біблії є найбільш проданою книгою у світі?",
-            "Годинник використовується для вимірювання тиску?",
-            "Тихий океан - найбільший океан на Землі?",
-            "'Au' у хімії означає срібло?",
-            "Хікарі у японській мові означає темний?",
-            "Програма для антивірусного захисту захищає комп'ютер від вірусів?",
-            "Фотосинтез - процес, коли рослини створюють їжу зі сонячного світла?",
-            "Лев Толстой написав 'Війна і мир'?",
-            "Китай - країна з найбільшою кількістю людей?",
-            "'HTML' означає 'HyperText Markup Language'?",
-            "'UNICEF' - абревіатура для 'United Nations International Children's Emergency Fund'?",
-            "Озеро Вікторія - найбільше озеро в Африці?",
-            "Альберт Ейнштейн написав теорію відносності?",
-            "Амазонка - найбільше річище на планеті?",
-            "Африка - найбільший материк?",
-            "'ETC' у англійській мові означає 'Екстермінація'?",
-            "Карл Маркс написав 'Революцію'?",
-            "Італія відома своїми піццами та пастою?",
-            "'PDF' - абревіатура для 'Portable Document Format'?",
-            "Ніагара - найбільший водоспад на планеті?",
-            "Програма 'Photoshop' редагує фотографії?",
-            "Легені є головним органом дихання у людини?"
-        ];
-        let num;
-
-
-        const answers = ["false", "true", "true", "true", "true", "false", "true", "true", "false", "false", "true", "false", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "false", "true", "true", "true", "true", "true", "true"];
-
-
-
-
-        document.querySelector(".startGame6Btn").addEventListener("click", startGame6);
-
-
-        function startGame6() {
-            num = Math.floor(Math.random() * questions.length);
-            let currentQuestion = questions[num];
-            document.querySelector(".questionG6").innerHTML = currentQuestion;
-            questions.splice(num, 1);
-
-            let userInpGame6 = document.querySelector(".userInpGame6");
-
-            userInpGame6.addEventListener("keypress", checkGame6);
-            answers[num]
-        }
-
-        function checkGame6(event) {
-            if (event.key === "Enter" || event.key === " ") {
-                let userInpGame6 = document.querySelector(".userInpGame6");
-                if (userInpGame6.value == answers[num]) {
-                    console.log("win");
-                } else {
-                    console.log("lose");
-                    console.log(answers[num])
-                }
-                event.preventDefault();
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        function newQuestionG6() {
-            let newQuestion = questions[Math.floor(Math.random() * questions.length)]
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -652,6 +569,262 @@
             document.querySelector(".userInpGame5").addEventListener("keypress", readAnsw())
 
         })
+
+
+
+
+        //  GAME 6 , VICTORINE TRUE FALSE   
+        let questions = [
+            "Рим - столиця Франції?",
+            "'Гаррі Поттер' написано Джоан Роулінг?",
+            "Тихий океан - найдовший океан на Землі?",
+            "Юпітер - найбільша планета у Сонячній системі?",
+            "'www' у веб-адресах означає 'World Wide Web'?",
+            "Уругвай виграв перший чемпіонат світу з футболу?",
+            "'NASA' - абревіатура для 'National Aeronautics and Space Administration'?",
+            "Альберт Ейнштейн вважається батьком сучасного фізики?",
+            "Книга після Біблії є найбільш проданою книгою у світі?",
+            "Годинник використовується для вимірювання тиску?",
+            "Тихий океан - найбільший океан на Землі?",
+            "'Au' у хімії означає срібло?",
+            "Хікарі у японській мові означає темний?",
+            "Програма для антивірусного захисту захищає комп'ютер від вірусів?",
+            "Фотосинтез - процес, коли рослини створюють їжу зі сонячного світла?",
+            "Лев Толстой написав 'Війна і мир'?",
+            "Китай - країна з найбільшою кількістю людей?",
+            "'HTML' означає 'HyperText Markup Language'?",
+            "'UNICEF' - абревіатура для 'United Nations International Children's Emergency Fund'?",
+            "Озеро Вікторія - найбільше озеро в Африці?",
+            "Альберт Ейнштейн написав теорію відносності?",
+            "Амазонка - найбільше річище на планеті?",
+            "Африка - найбільший материк?",
+            "'ETC' у англійській мові означає 'Екстермінація'?",
+            "Карл Маркс написав 'Революцію'?",
+            "Італія відома своїми піццами та пастою?",
+            "'PDF' - абревіатура для 'Portable Document Format'?",
+            "Ніагара - найбільший водоспад на планеті?",
+            "Програма 'Photoshop' редагує фотографії?",
+            "Легені є головним органом дихання у людини?"
+        ];
+        let num;
+
+
+        let answers = ["false", "true", "true", "true", "true", "false", "true", "true", "false", "false", "true", "false", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "false", "true", "true", "true", "true", "true", "true"];
+
+        let scoreG6 = 0;
+
+
+        document.querySelector(".startGame6Btn").addEventListener("click", startGame6);
+
+
+        function startGame6() {
+            num = Math.floor(Math.random() * questions.length);
+            let currentQuestion = questions[num];
+            document.querySelector(".questionG6").innerHTML = currentQuestion;
+
+            let userInpGame6 = document.querySelector(".userInpGame6");
+            userInpGame6.addEventListener("keypress", checkGame6);
+        }
+
+        function checkGame6(event) {
+            if (event.key === "Enter" || event.key === " ") {
+                let userInpGame6 = document.querySelector(".userInpGame6");
+                let currentAnswer = answers[num];
+
+                if (userInpGame6.value == currentAnswer) {
+                    questions.splice(num, 1);
+                    answers.splice(num, 1);
+                    scoreG6 = scoreG6 + 1;
+                    document.querySelector(".scoreG6").innerHTML = scoreG6;
+                    document.querySelector(".userInpGame6").value = ""
+                    newQuestionG6();
+                } else {
+                    questions.splice(num, 1);
+                    answers.splice(num, 1);
+                    scoreG6 = scoreG6 - 1;
+                    document.querySelector(".scoreG6").innerHTML = scoreG6;
+                    document.querySelector(".userInpGame6").value = ""
+                    newQuestionG6();
+                }
+                event.preventDefault();
+            }
+        }
+
+        function newQuestionG6() {
+            if (questions.length > 0) {
+                num = Math.floor(Math.random() * questions.length);
+                let currentQuestion = questions[num];
+                document.querySelector(".questionG6").innerHTML = currentQuestion;
+            } else {
+                alert("the end")
+                restartG6()
+            }
+        }
+
+        document.querySelector(".restartG6").addEventListener("click", restartG6)
+
+        function restartG6() {
+            questions = [
+                "Рим - столиця Франції?",
+                "'Гаррі Поттер' написано Джоан Роулінг?",
+                "Тихий океан - найдовший океан на Землі?",
+                "Юпітер - найбільша планета у Сонячній системі?",
+                "'www' у веб-адресах означає 'World Wide Web'?",
+                "Уругвай виграв перший чемпіонат світу з футболу?",
+                "'NASA' - абревіатура для 'National Aeronautics and Space Administration'?",
+                "Альберт Ейнштейн вважається батьком сучасного фізики?",
+                "Книга після Біблії є найбільш проданою книгою у світі?",
+                "Годинник використовується для вимірювання тиску?",
+                "Тихий океан - найбільший океан на Землі?",
+                "'Au' у хімії означає срібло?",
+                "Хікарі у японській мові означає темний?",
+                "Програма для антивірусного захисту захищає комп'ютер від вірусів?",
+                "Фотосинтез - процес, коли рослини створюють їжу зі сонячного світла?",
+                "Лев Толстой написав 'Війна і мир'?",
+                "Китай - країна з найбільшою кількістю людей?",
+                "'HTML' означає 'HyperText Markup Language'?",
+                "'UNICEF' - абревіатура для 'United Nations International Children's Emergency Fund'?",
+                "Озеро Вікторія - найбільше озеро в Африці?",
+                "Альберт Ейнштейн написав теорію відносності?",
+                "Амазонка - найбільше річище на планеті?",
+                "Африка - найбільший материк?",
+                "'ETC' у англійській мові означає 'Екстермінація'?",
+                "Карл Маркс написав 'Революцію'?",
+                "Італія відома своїми піццами та пастою?",
+                "'PDF' - абревіатура для 'Portable Document Format'?",
+                "Ніагара - найбільший водоспад на планеті?",
+                "Програма 'Photoshop' редагує фотографії?",
+                "Легені є головним органом дихання у людини?"
+            ];
+
+            answers = ["false", "true", "true", "true", "true", "false", "true", "true", "false", "false", "true", "false", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "false", "true", "true", "true", "true", "true", "true"];
+
+            scoreG6 = 0
+            document.querySelector(".scoreG6").innerHTML = scoreG6
+            document.querySelector(".userInpGame6").value = ""
+
+        }
+
+
+
+
+
+
+
+        //  GAME 7 COCKIE CLICKER
+        let allclicks = 0
+        let clickprice = 1
+        let clickspersecond = 1
+        let upgradeclicksprice = 5
+        let upgradecpsprice = 10
+        let allclickscounter = document.querySelector(".game7wrapper .clicks")
+        let cpscounter = document.querySelector(".game7wrapper .clickspersecond")
+        let clickupgradebutton = document.querySelector(".game7wrapper .upgrade-clicks")
+        let cpsupgradebutton = document.querySelector(".game7wrapper .upgrade-cps")
+        let mainclickbutton = document.querySelector(".game7wrapper .clicker-button")
+        document.querySelector(".game7wrapper .startGame7").addEventListener("click", function() {
+            mainclickbutton.addEventListener("click", function() {
+                    allclicks += clickprice
+                    allclickscounter.innerHTML = `Clicks: ${allclicks}`
+                })
+                //add cps
+            setInterval(function() {
+                    allclicks += clickspersecond
+                }, 1000)
+                //refresh all data
+            setInterval(function() {
+                allclickscounter.innerHTML = `Clicks: ${allclicks}`
+                cpscounter.innerHTML = `CPS: ${clickspersecond}`
+                clickupgradebutton.innerHTML = `${clickprice}/🖱, Price: ${upgradeclicksprice}`
+                cpsupgradebutton.innerHTML = `${clickspersecond}/🕛, Price: ${upgradecpsprice}`
+            }, 50)
+            clickupgradebutton.addEventListener("click", function() {
+                if (allclicks <= upgradeclicksprice) return
+                clickprice += 1
+                allclicks -= upgradeclicksprice
+                upgradeclicksprice = Math.floor(1.7 * upgradeclicksprice)
+            })
+            cpsupgradebutton.addEventListener("click", function() {
+                if (allclicks <= upgradecpsprice) return
+                clickspersecond += 1
+                allclicks -= upgradecpsprice
+                upgradecpsprice = Math.floor(1.8 * upgradecpsprice)
+            })
+
+
+            event.target.style.display = 'none'
+        })
+
+        // Масив з математичними прикладами у форматі "число1 операція число2"
+        let questions2 = ["2 + 3", "10 - 5", "6 * 8", "15 / 3", "8 + 4", "20 - 7", "5 * 6", "18 / 2", "9 + 3", "25 - 12", "7 * 9", "24 / 3", "4 + 7 - 2", "30 - 9", "3 * 5", "21 / 3", "6 + 9 * 2", "45 - 20", "8 * 3", "40 / 5", "12 + 8 / 2", "18 - 6", "9 * 4 - 3", "36 / 6", "5 + 8", "15 - 6", "7 * 3 + 2", "27 / 9", "2 + 6 * 3", "16 - 5", "4 * 9 - 6", "63 / 9", "7 + 7", "30 - 15", "6 * 5", "50 / 10", "12 + 4 - 1", "14 - 7", "8 * 2", "24 / 3", "9 + 6 * 2", "20 - 9", "5 * 4 + 3", "32 / 8", "3 + 9 - 5", "18 - 8", "9 * 2 + 1", "18 / 3", "10 + 5 * 2", "35 - 20"];
+
+        // Масив з відповідями на математичні приклади
+        let answers2 = [5, 5, 48, 5, 12, 13, 30, 9, 12, 13, 63, 8, 9, 21, 15, 7, 24, 25, 24, 8, 16, 18, 33, 6, 13, 15, 23, 3, 20, 13, 30, 14, 15, 30, 10, 15, 8, 8, 21, 25, 19, 8, 19, 6, 11, 19, 6, 20, 15];
+
+
+        let scoreG8 = 0;
+        let num2
+
+
+        document.querySelector(".startGame8Btn").addEventListener("click", startGame8);
+
+
+        function startGame8() {
+            num2 = Math.floor(Math.random() * questions2.length);
+            let currentQuestion2 = questions2[num2];
+            document.querySelector(".questionG8").innerHTML = currentQuestion2;
+
+            let userInpGame8 = document.querySelector(".userInpGame8");
+            userInpGame8.addEventListener("keypress", checkGame8);
+        }
+
+        function checkGame8(event) {
+            if (event.key === "Enter" || event.key === " ") {
+                let userInpGame8 = document.querySelector(".userInpGame8");
+                let currentAnswer2 = answers2[num2];
+
+                if (userInpGame8.value == currentAnswer2) {
+                    questions2.splice(num2, 1);
+                    answers2.splice(num2, 1);
+                    scoreG8 = scoreG8 + 1;
+                    document.querySelector(".scoreG8").innerHTML = scoreG8;
+                    document.querySelector(".userInpGame8").value = ""
+                    newQuestionG8();
+                } else {
+                    questions2.splice(num2, 1);
+                    answers2.splice(num2, 1);
+                    scoreG8 = scoreG8 - 1;
+                    document.querySelector(".scoreG8").innerHTML = scoreG8;
+                    document.querySelector(".userInpGame8").value = ""
+                    newQuestionG8();
+                }
+                event.preventDefault();
+            }
+        }
+
+        function newQuestionG8() {
+            if (questions2.length > 0) {
+                num2 = Math.floor(Math.random() * questions.length);
+                let currentQuestion2 = questions2[num2];
+                document.querySelector(".questionG8").innerHTML = currentQuestion2;
+            } else {
+                alert("the end")
+                restartG8()
+            }
+        }
+
+        function restartG8() {
+            // Масив з математичними прикладами у форматі "число1 операція число2"
+            let questions2 = ["2 + 3", "10 - 5", "6 * 8", "15 / 3", "8 + 4", "20 - 7", "5 * 6", "18 / 2", "9 + 3", "25 - 12", "7 * 9", "24 / 3", "4 + 7 - 2", "30 - 9", "3 * 5", "21 / 3", "6 + 9 * 2", "45 - 20", "8 * 3", "40 / 5", "12 + 8 / 2", "18 - 6", "9 * 4 - 3", "36 / 6", "5 + 8", "15 - 6", "7 * 3 + 2", "27 / 9", "2 + 6 * 3", "16 - 5", "4 * 9 - 6", "63 / 9", "7 + 7", "30 - 15", "6 * 5", "50 / 10", "12 + 4 - 1", "14 - 7", "8 * 2", "24 / 3", "9 + 6 * 2", "20 - 9", "5 * 4 + 3", "32 / 8", "3 + 9 - 5", "18 - 8", "9 * 2 + 1", "18 / 3", "10 + 5 * 2", "35 - 20"];
+
+            // Масив з відповідями на математичні приклади
+            let answers2 = [5, 5, 48, 5, 12, 13, 30, 9, 12, 13, 63, 8, 9, 21, 15, 7, 24, 25, 24, 8, 16, 18, 33, 6, 13, 15, 23, 3, 20, 13, 30, 14, 15, 30, 10, 15, 8, 8, 21, 25, 19, 8, 19, 6, 11, 19, 6, 20, 15];
+
+
+            scoreG8 = 0
+            document.querySelector(".scoreG8").innerHTML = scoreG8
+            document.querySelector(".userInpGame8").value = ""
+        }
     </script>
 </body>
 
