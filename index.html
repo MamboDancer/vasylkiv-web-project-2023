@@ -9,6 +9,7 @@
         body {
             background-color: rgb(0, 0, 0);
             color: whitesmoke;
+            text-align: center;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
         /*title styles*/
@@ -71,7 +72,9 @@
         .game4wrapper,
         .game5wrapper,
         .game6wrapper,
-        .game7wrapper {
+        .game7wrapper,
+        .game8wrapper,
+        .game9wrapper {
             border: 2px solid white;
             padding: 10px;
             margin: 10px;
@@ -237,6 +240,14 @@
             <br>
             <input type="text" name="" class="userInpGame8">
             <button class="restartG8">Restart</button>
+        </div>
+
+        <div class="game9wrapper">
+            <p>Snake game</p>
+            <button class="startGame9Btn">PLAY!</button>
+            <p style="float: left;">Score : </p>
+            <p style="float: right;" class="scoreG9">0</p>
+            <canvas id="board"></canvas>
         </div>
 
     </div>
@@ -420,7 +431,7 @@
                 if (time === 0) {
                     clearInterval(countdown);
                     clickArea.removeEventListener("click", clickCount);
-                    cpsCount(); // Update CPS one final time
+                    cpsCount();
                     alert("End of game");
                 }
             }
@@ -832,6 +843,105 @@
             scoreG8 = 0
             document.querySelector(".scoreG8").innerHTML = scoreG8
             document.querySelector(".userInpGame8").value = ""
+        }
+
+
+
+
+        // GAME 4 Canvas snake
+        //board
+
+        document.querySelector(".startGame9Btn").addEventListener("click", function() {
+            board = document.getElementById("board");
+            board.height = rows * blockSize;
+            board.width = cols * blockSize;
+            context = board.getContext("2d");
+            placeFood();
+            document.addEventListener("keyup", changeDirection);
+            setInterval(updateG9, 100);
+        })
+
+        let blockSize = 25;
+        let rows = 20;
+        let cols = 20;
+        let board;
+        let context;
+        let snakeX = blockSize * 5;
+        let snakeY = blockSize * 5;
+        let velocityX = 0;
+        let velocityY = 0;
+        let snakeBody = [];
+        let foodX;
+        let foodY;
+        let gameOver = false;
+
+
+
+        function updateG9() {
+            if (gameOver) {
+                return;
+            }
+
+            context.fillStyle = "blue";
+            context.fillRect(0, 0, board.width, board.height);
+
+            context.fillStyle = "red";
+            context.fillRect(foodX, foodY, blockSize, blockSize);
+
+            if (snakeX == foodX && snakeY == foodY) {
+                snakeBody.push([foodX, foodY]);
+                placeFood();
+            }
+
+            for (let i = snakeBody.length - 1; i > 0; i--) {
+                snakeBody[i] = snakeBody[i - 1];
+            }
+            if (snakeBody.length) {
+                snakeBody[0] = [snakeX, snakeY];
+            }
+
+            context.fillStyle = "lime";
+            snakeX += velocityX * blockSize;
+            snakeY += velocityY * blockSize;
+            context.fillRect(snakeX, snakeY, blockSize, blockSize);
+            for (let i = 0; i < snakeBody.length; i++) {
+                context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+            }
+
+            //game over conditions
+            if (snakeX < 0 || snakeX > cols * blockSize || snakeY < 0 || snakeY > rows * blockSize) {
+                gameOver = true;
+                alert("Game Over");
+            }
+
+            for (let i = 0; i < snakeBody.length; i++) {
+                if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
+                    gameOver = true;
+                    alert("Game Over");
+                }
+            }
+        }
+
+        function changeDirection(e) {
+            if (e.code == "ArrowUp" && velocityY != 1) {
+                velocityX = 0;
+                velocityY = -1;
+            } else if (e.code == "ArrowDown" && velocityY != -1) {
+                velocityX = 0;
+                velocityY = 1;
+            } else if (e.code == "ArrowLeft" && velocityX != 1) {
+                velocityX = -1;
+                velocityY = 0;
+            } else if (e.code == "ArrowRight" && velocityX != -1) {
+                velocityX = 1;
+                velocityY = 0;
+            }
+        }
+
+
+        function placeFood() {
+            foodX = Math.floor(Math.random() * cols) * blockSize;
+            foodY = Math.floor(Math.random() * rows) * blockSize;
         }
     </script>
 </body>
