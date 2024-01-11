@@ -140,6 +140,8 @@
 
             </div>
 
+            <button class="restartG1btn">Restart</button>
+
         </div>
 
 
@@ -230,15 +232,12 @@
 
         <div class="game8wrapper">
             <button class="startGame8Btn">PLAY!</button>
-            <p>Math problem</p>
-            <p style="float: left;">Score : </p>
-            <p style="float: right;" class="scoreG8">0</p>
-            <br>
 
-            <p style="float: right;" class="questionG8"></p>
-            <br>
-            <br>
-            <input type="text" name="" class="userInpGame8">
+            <p>Guess the number</p><br>
+            <p class="helperG8">???</p>
+            <input type="text" name="" class="userInpG8" id="">
+            <button class="checkG8">Check answ</button>
+
             <button class="restartG8">Restart</button>
         </div>
 
@@ -312,13 +311,11 @@
             }
 
             //restert btn
-            let restart = document.createElement("button")
-            restart.innerHTML = "Restart"
-            document.querySelector(".game1wrapper").append(restart)
+
             document.querySelector(".restartG1btn").addEventListener("click", restartG1)
 
             function restartG1() {
-                score = 0;
+                score = 1;
                 clearInterval(spawnObj);
 
 
@@ -331,8 +328,7 @@
                 }
 
 
-                document.querySelector('.restartG1btn').removeEventListener('click', restartG1);
-                document.querySelector('.game1wrapper').removeChild(restart);
+
 
 
                 playButton.classList.remove('gameStarted');
@@ -770,85 +766,43 @@
 
         //GAME 8
 
-        // Масив з математичними прикладами у форматі "число1 операція число2"
-        let questions2 = ["2 + 3", "10 - 5", "6 * 8", "15 / 3", "8 + 4", "20 - 7", "5 * 6", "18 / 2", "9 + 3", "25 - 12", "7 * 9", "24 / 3", "4 + 7 - 2", "30 - 9", "3 * 5", "21 / 3", "6 + 9 * 2", "45 - 20", "8 * 3", "40 / 5", "12 + 8 / 2", "18 - 6", "9 * 4 - 3", "36 / 6", "5 + 8", "15 - 6", "7 * 3 + 2", "27 / 9", "2 + 6 * 3", "16 - 5", "4 * 9 - 6", "63 / 9", "7 + 7", "30 - 15", "6 * 5", "50 / 10", "12 + 4 - 1", "14 - 7", "8 * 2", "24 / 3", "9 + 6 * 2", "20 - 9", "5 * 4 + 3", "32 / 8", "3 + 9 - 5", "18 - 8", "9 * 2 + 1", "18 / 3", "10 + 5 * 2", "35 - 20"];
-
-        // Масив з відповідями на математичні приклади
-        let answers2 = [5, 5, 48, 5, 12, 13, 30, 9, 12, 13, 63, 8, 9, 21, 15, 7, 24, 25, 24, 8, 16, 18, 33, 6, 13, 15, 23, 3, 20, 13, 30, 14, 15, 30, 10, 15, 8, 8, 21, 25, 19, 8, 19, 6, 11, 19, 6, 20, 15];
-
 
         let scoreG8 = 0;
         let num2 = 0;
-
+        let botAns = 2
+        let helperG8 = document.querySelector(".helperG8")
 
 
         document.querySelector(".startGame8Btn").addEventListener("click", startGame8);
 
 
         function startGame8() {
-            num2 = Math.floor(Math.random() * questions2.length);
-            let currentQuestion2 = questions2[num2];
-            document.querySelector(".questionG8").innerHTML = currentQuestion2;
-
-            let userInpGame8 = document.querySelector(".userInpGame8");
-            userInpGame8.addEventListener("keypress", checkGame8);
+            botAns = Math.floor(Math.random() * 10)
+            console.log(botAns)
         }
 
-        function checkGame8(event) {
-            if (event.key === "Enter" || event.key === " ") {
-                let userInpGame8 = document.querySelector(".userInpGame8");
-                let currentAnswer2 = answers2[num2];
+        document.querySelector(".checkG8").addEventListener("click", checkG8)
 
-                if (userInpGame8.value == currentAnswer2) {
-                    questions2.splice(num2, 1);
-                    answers2.splice(num2, 1);
-                    scoreG8 = scoreG8 + 1;
-                    document.querySelector(".scoreG8").innerHTML = scoreG8;
-                    document.querySelector(".userInpGame8").value = ""
-                    newQuestionG8();
-                } else {
-                    questions2.splice(num2, 1);
-                    answers2.splice(num2, 1);
-                    scoreG8 = scoreG8 - 1;
-                    document.querySelector(".scoreG8").innerHTML = scoreG8;
-                    document.querySelector(".userInpGame8").value = ""
-                    newQuestionG8();
-                }
-                event.preventDefault();
-            }
-        }
-
-        function newQuestionG8() {
-            if (questions2.length > 0) {
-                num2 = Math.floor(Math.random() * questions.length);
-                let currentQuestion2 = questions2[num2];
-                document.querySelector(".questionG8").innerHTML = currentQuestion2;
+        function checkG8() {
+            let userInpG8 = document.querySelector(".userInpG8").value
+            if (userInpG8 == botAns) {
+                helperG8.innerHTML = "right"
+                console.log("right")
+                document.querySelector(".userInpG8").value = ""
+            } else if (userInpG8 >= botAns) {
+                helperG8.innerHTML = "smaller"
+                console.log("smaller")
+                document.querySelector(".userInpG8").value = ""
             } else {
-                alert("the end")
-                restartG8()
+                helperG8.innerHTML = "bigger"
+                console.log("bigger")
+                document.querySelector(".userInpG8").value = ""
             }
         }
 
-        document.querySelector(".restartG8").addEventListener("click", restartG8)
 
 
-        function restartG8() {
-
-            let questions2 = ["2 + 3", "10 - 5", "6 * 8", "15 / 3", "8 + 4", "20 - 7", "5 * 6", "18 / 2", "9 + 3", "25 - 12", "7 * 9", "24 / 3", "4 + 7 - 2", "30 - 9", "3 * 5", "21 / 3", "6 + 9 * 2", "45 - 20", "8 * 3", "40 / 5", "12 + 8 / 2", "18 - 6", "9 * 4 - 3", "36 / 6", "5 + 8", "15 - 6", "7 * 3 + 2", "27 / 9", "2 + 6 * 3", "16 - 5", "4 * 9 - 6", "63 / 9", "7 + 7", "30 - 15", "6 * 5", "50 / 10", "12 + 4 - 1", "14 - 7", "8 * 2", "24 / 3", "9 + 6 * 2", "20 - 9", "5 * 4 + 3", "32 / 8", "3 + 9 - 5", "18 - 8", "9 * 2 + 1", "18 / 3", "10 + 5 * 2", "35 - 20"];
-
-
-            let answers2 = [5, 5, 48, 5, 12, 13, 30, 9, 12, 13, 63, 8, 9, 21, 15, 7, 24, 25, 24, 8, 16, 18, 33, 6, 13, 15, 23, 3, 20, 13, 30, 14, 15, 30, 10, 15, 8, 8, 21, 25, 19, 8, 19, 6, 11, 19, 6, 20, 15];
-
-
-            scoreG8 = 0
-            document.querySelector(".scoreG8").innerHTML = scoreG8
-            document.querySelector(".userInpGame8").value = ""
-        }
-
-
-
-
-        // GAME 4 Canvas snake
+        // GAME 9 Canvas snake
         //board
 
         document.querySelector(".startGame9Btn").addEventListener("click", function() {
