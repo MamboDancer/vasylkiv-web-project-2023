@@ -244,9 +244,8 @@
         <div class="game9wrapper">
             <p>Snake game</p>
             <button class="startGame9Btn">PLAY!</button>
-            <p style="float: left;">Score : </p>
-            <p style="float: right;" class="scoreG9">0</p>
             <canvas id="board"></canvas>
+            <button class="restartG9">Restart</button>
         </div>
 
     </div>
@@ -803,17 +802,7 @@
 
 
         // GAME 9 Canvas snake
-        //board
 
-        document.querySelector(".startGame9Btn").addEventListener("click", function() {
-            board = document.getElementById("board");
-            board.height = rows * blockSize;
-            board.width = cols * blockSize;
-            context = board.getContext("2d");
-            placeFood();
-            document.addEventListener("keyup", changeDirection);
-            setInterval(updateG9, 100);
-        })
 
         let blockSize = 25;
         let rows = 20;
@@ -828,8 +817,45 @@
         let foodX;
         let foodY;
         let gameOver = false;
+        let gameInterval
 
 
+        document.querySelector(".startGame9Btn").addEventListener("click", function() {
+            board = document.getElementById("board");
+            board.height = rows * blockSize;
+            board.width = cols * blockSize;
+            context = board.getContext("2d");
+            placeFood();
+            document.addEventListener("keyup", changeDirection);
+
+
+            gameInterval = setInterval(updateG9, 100);
+        })
+
+
+        document.querySelector(".restartG9").addEventListener("click", function() {
+            clearInterval(gameInterval);
+            snakeBody = [];
+            gameOver = false;
+
+            board = document.getElementById("board");
+            board.height = rows * blockSize;
+            board.width = cols * blockSize;
+            context = board.getContext("2d");
+
+
+            snakeX = blockSize * 5;
+            snakeY = blockSize * 5;
+
+
+            velocityX = 0;
+            velocityY = 0;
+
+            placeFood();
+            document.addEventListener("keyup", changeDirection);
+
+            gameInterval = setInterval(updateG9, 100);
+        });
 
         function updateG9() {
             if (gameOver) {
