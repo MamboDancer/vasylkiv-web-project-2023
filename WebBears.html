@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		* {
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background: rgb(133, 73, 32);
+}
+
+.wrapper {
+	height: 200vh;
+	background: rgb(133, 73, 32);
+}
+
+.name {
+	font-family: fantasy;
+	padding: 20px;
+	display: grid;
+	place-items: center;
+	font-size: 350%;
+	margin-bottom: 5px;
+	border: 1px solid black;
+}
+
+.grid {
+	margin-top: 6%;
+	margin-bottom: 4%;
+	margin-left: 15%;
+	width: 70%;
+	border: 1px solid black;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	place-content: center;
+	grid-gap: 15px;
+}
+
+.grid_item {
+	height: 300px;
+	border: 5px solid rgb(23, 0, 2);
+	border-top-left-radius: 50%;
+	border-top-right-radius: 50%;
+	overflow: hidden;
+	transition: 1s;
+	margin: 30px;
+	background-color: rgb(133, 73, 32);
+	z-index: 1;
+}
+
+.grid_item:hover {
+	border-radius: 0%;
+	position: relative;
+	display: flex;
+	justify-self: center;
+	transform: scale(1.5);
+	transition: 1s;
+	z-index: 2;
+
+}
+
+
+        /*game 1 , 2 styles*/
+        
+        .gridDiv {
+            width: 30vw;
+            height: 13vw;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            border: 2px solid rgb(255, 255, 255);
+            cursor: crosshair;
+            user-select: none;
+            z-index: 1;
+        }
+        
+        .clickG3 {
+            width: 20vw;
+            height: 20vw;
+            padding-right: 40px;
+            border: 2px solid rgb(255, 255, 255);
+            cursor: cell;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .clickG3>p {
+            margin-top: 40%;
+            color: black;
+        }
+        
+        .item {
+            font-size: 200%;
+        }
+        
+        .score,
+        .scoreG1 {
+            float: right;
+        }
+        
+        .allGamesWrapper {
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            padding: 10px;
+            margin: 10px;
+        }
+        
+        .game1wrapper,
+        .game2wrapper,
+        .game3wrapper,
+        .game4wrapper,
+        .game5wrapper,
+        .game6wrapper,
+        .game7wrapper,
+        .game8wrapper,
+        .game9wrapper {
+            border: 2px solid white;
+            padding: 10px;
+            margin: 10px;
+            background-color: rgb(133, 73, 32);
+        }
+        
+        p {
+            width: auto;
+        }
+        
+        .main-game {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            place-items: center;
+            width: 50vw;
+            height: 40vw;
+            margin: 0 auto;
+        }
+        
+        .checkbox {
+            background-color: blue;
+            width: 10vw;
+            height: 10vw;
+            border: 1px solid black;
+            font-size: 250%;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-weight: 900;
+        }
+        
+        .userInpGame5 {
+            width: 100px;
+        }
+        
+        .game7wrapper .game-wrapper {
+            display: grid;
+            background-color: blue;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        #f:hover {
+        	position: relative;
+        	margin-left: 400px;
+        }
+
+        #for:hover {
+        	height: 650px;
+        	position: relative;
+        	left: 340px;
+        }
+        #ni:hover {
+        	height: 170%;
+        	position: relative;
+        	margin-right: 500px;
+        	margin-top: -400px;
+        }
+</style>
+	<title></title>
+</head>
+<body>
+	<div class="wrapper">
+		<h2 class="name">ROBOGAMES</h2>
+		<div class="grid">
+			<div class="grid_item" id="f">
+				<div class="game1wrapper">
+                    <button class="startGame1Btn">PLAY!</button>
+                    <p>Aim trainer</p>
+                    <p class="score">0</p>
+                    <div class="gridDiv">
+
+                    </div>
+
+                    <button class="restartG1btn">Restart</button>
+
+                </div>
+            </div>
+			<div class="grid_item" id="s">
+				<div class="game2wrapper">
+                    <button class="startGame2Btn">PLAY!</button>
+                    <p>Words</p>
+                    <p class="scoreG1">0</p>
+                    <p class="theme">Theme : </p>
+                    <p class="mainWord">Letters : </p>
+            		<input type="text" name="" id="" class="userInp">
+            		<button class="answerBtn">Answer</button>
+        		</div>
+			</div>
+			<div class="grid_item" id="t">
+				<div class="game3wrapper">
+            		<button class="startGame3Btn">PLAY!</button>
+            		<p>Clicker</p>
+
+            		<p style="float: left;">Score: </p>
+            		<p style="float: right;" class="scoreG3">0</p>
+            		<br>
+            		<p style="float: left;">Time left :
+                		<p style="float: right;" class="timeG3">10</p>
+            		</p>
+            		<div class="clickG3">
+                		<p>Click here to score points</p>
+            		</div>
+            		<p style="float: left;">CPS:
+                		<p style="float: right;" class="cps">0</p>
+            		</p>
+        		</div>
+			</div>
+			<div class="grid_item" id="for">
+				<div class="game4wrapper">
+
+            		<div class="main-game">
+
+            		</div>
+
+
+
+
+
+        		</div>
+			</div>
+			<div class="grid_item" id="fif">
+				<div class="game5wrapper">
+            		<button class="startGame5Btn">PLAY!</button>
+            		<p>Typing trainer</p>
+            		<p class="game5Score"></p>
+            		<p class="currentHtml"></p>
+            		<input type="text" name="" class="userInpGame5">
+
+
+        		</div>
+    		</div>
+			<div class="grid_item" id="si">
+				<div class="game6wrapper">
+            		<button class="startGame6Btn">PLAY!</button>
+            		<p>Victorine true/false</p>
+            		<p style="float: left;">Score : </p>
+            		<p style="float: right;" class="scoreG6">0</p>
+            		<br>
+
+            		<p style="float: right;" class="questionG6"></p>
+            		<br>
+            		<br>
+            		<input type="text" name="" class="userInpGame6">
+            		<button class="restartG6">Restart</button>
+        		</div>
+			</div>
+			<div class="grid_item" id="sev">
+				<div class="game7wrapper">
+            		<button class="startGame7">PLAY!</button>
+            		<p class="game-header">PC Clicker</p>
+            		<div class="game-wrapper">
+                		<div class="game">
+                    		<p class="clicks">Clicks: 0</p>
+                    		<p class="clickspersecond">CPS: 0</p>
+                    		<button class="clicker-button" style="background-color: rgba(0,0,0,0);font-size: 6vw"></button>
+                		</div>
+                		<div class="upgrades">
+                    		<p>Upgrades:</p>
+                    		<button class="upgrade-clicks"></button>
+                    		<button class="upgrade-cps"></button>
+                		</div>
+            		</div>
+
+        		</div>
+			</div>
+			<div class="grid_item" id="ei">
+				<div class="game8wrapper">
+            		<button class="startGame8Btn">PLAY!</button>
+
+            		<p>Guess the number</p><br>
+            		<p class="helperG8">???</p>
+            		<input type="text" name="" class="userInpG8" id="">
+            		<button class="checkG8">Check answ</button>
+
+            		<button class="restartG8">Restart</button>
+        		</div>
+			</div>
+			<div class="grid_item" id="ni">
+				<div class="game9wrapper">
+            		<p>Snake game</p>
+            		<button class="startGame9Btn">PLAY!</button>
+            		<canvas id="board"></canvas>
+            		<button class="restartG9">Restart</button>
+        		</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+        // global variables
+
+
+
+        // GAME 1 AIM TRAINER   
+        let playButton = document.querySelector(".startGame1Btn");
+
+        playButton.addEventListener("click", function() {
+            if (!playButton.classList.contains('gameStarted')) {
+                playButton.classList.add('gameStarted');
+                gameTwo();
+            }
+        });
+
+        function gameTwo() {
+            let score = 0;
+            let gameStarted = true;
+
+            for (let i = 1; i < 101; i++) {
+                let elem = document.createElement("div");
+                elem.setAttribute("class", `item${i} item`);
+                document.querySelector(".gridDiv").append(elem);
+            }
+
+
+
+
+
+
+            // obj spawning
+            setInterval(spawnObj, 1000);
+
+            function spawnObj() {
+                for (let i = 1; i < 101; i++) {
+                    document.querySelector(`.item${i}`).innerHTML = "";
+                }
+
+                let position = Math.floor(Math.random() * 101);
+                let target = document.querySelector(`.item${position}`);
+                target.innerHTML = "●";
+
+                target.addEventListener("click", function() {
+                    score++;
+                    document.querySelector(".score").innerHTML = score;
+                });
+
+                setTimeout(() => {
+                    if (!target.innerHTML) {
+                        score = score - 1;
+                        document.querySelector(".score").innerHTML = score;
+                    }
+                }, 999);
+            }
+
+            //restert btn
+
+            document.querySelector(".restartG1btn").addEventListener("click", restartG1)
+
+            function restartG1() {
+                score = 1;
+                clearInterval(spawnObj);
+
+
+                for (let i = 1; i < 101; i++) {
+                    let elem = document.querySelector(`.item${i}`);
+                    if (elem) {
+                        elem.innerHTML = '';
+                        elem.removeEventListener('click', () => {});
+                    }
+                }
+
+
+
+
+
+                playButton.classList.remove('gameStarted');
+            }
+        }
+
+        //GAME 2  WORDS QUEST
+        document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
+
+        function gameOne() {
+            let currentWord = ""
+            let totalScrore = 0
+
+            WORDS = {
+                "robotics": ["алгоритм", "сенсори", "штучний інтелект", "мехатроніка", "програмування"],
+                "computers": ["процесор", "відеокарта", "диск", "память", "плата"],
+                "cars": ["двигун", "колеса", "кузов", "паливо", "трансмісія"],
+                "ukraine": ["герб", "незалежність", "карпати", "дніпро", "мова"],
+                "games": ["графіка", "мультиплеєр", "квести", "геймплей", "віртуальна реальність"]
+            }
+
+            showWord()
+
+            //show start words
+            function showWord() {
+                let riddle = newWord()
+
+                document.querySelector(".theme").innerHTML = `Theme : ${riddle.theme}`
+                document.querySelector(".mainWord").innerHTML = ` Word : ${riddle.mainWord} `
+            }
+
+            // make new word 
+            function newWord() {
+                let keys = Object.keys(WORDS)
+                let theme = keys[Math.floor(Math.random() * keys.length)]
+                let mainWord = WORDS[theme][Math.floor(Math.random() * WORDS[theme].length)]
+
+
+                mainWordSplited = mainWord.split("")
+                mainWordSplited.sort()
+                currentWord = mainWord
+                return {
+                    "theme": theme,
+                    "mainWord": mainWordSplited
+                }
+            }
+
+            //check user answ
+            document.querySelector(".answerBtn").addEventListener("click", function() {
+                let userAnswer = document.querySelector(".userInp").value.toLowerCase()
+                console.log(currentWord)
+                console.log(userAnswer)
+                if (userAnswer === currentWord) totalScrore++
+
+                    else totalScrore--
+
+                        document.querySelector(".scoreG1").innerHTML = totalScrore
+                document.querySelector(".userInp").value = ""
+                showWord()
+            })
+
+
+
+        }
+
+
+        //  GAME 3 CLICKER  
+        document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
+
+        function gameThree() {
+            let scoreG3 = 0;
+            let time = 10;
+            let clickArea = document.querySelector(".clickG3");
+            let countdown;
+
+            clickArea.addEventListener("click", clickCount);
+
+            function clickCount() {
+                if (time >= 0) {
+                    scoreG3++;
+                    document.querySelector(".scoreG3").innerHTML = scoreG3;
+                    cpsCount();
+                }
+            }
+
+            function cpsCount() {
+                if (time > 0) {
+                    let cps = scoreG3 / (10 - time);
+                    document.querySelector(".cps").innerHTML = Math.floor(cps);
+                }
+            }
+
+            function timeCount() {
+                time--;
+                document.querySelector(".timeG3").innerHTML = time;
+                if (time === 0) {
+                    clearInterval(countdown);
+                    clickArea.removeEventListener("click", clickCount);
+                    cpsCount();
+                    alert("End of game");
+                }
+            }
+
+            countdown = setInterval(timeCount, 1000);
+        }
+
+
+        // GAME 4 XO GAME   
+
+        let elarray = []
+
+        function initBoard() {
+            for (let i = 0; i < 9; i++) {
+                let el = document.createElement("div")
+                el.setAttribute("class", `checkbox checkbox${i}`)
+                elarray.push(el)
+                document.querySelector(".main-game").append(el)
+            }
+        }
+
+        function checkWin(ap) {
+            if (ap) ap = 'X'
+            else ap = 'O'
+            let els = 0
+            let s = 0
+            for (let i = 0; i < 9; i++) {
+                if (elarray[i].innerHTML == ap) els++
+                    s++
+                    if (els == 3) return ap
+                if (s == 3) {
+                    s = 0
+                    els = 0
+                }
+            }
+            for (let c = 0; c < 3; c++) {
+                let e = 0
+                if (elarray[c].innerHTML == ap) e++
+                    if (elarray[c + 3].innerHTML == ap) e++
+                        if (elarray[c + 6].innerHTML == ap) e++
+                            if (e == 3) return ap
+            }
+            if (elarray[0].innerHTML == ap && elarray[4].innerHTML == ap && elarray[8].innerHTML == ap) return ap
+            if (elarray[2].innerHTML == ap && elarray[4].innerHTML == ap && elarray[6].innerHTML == ap) return ap
+            return 0
+        }
+        initBoard()
+        let activeplayer = true; // 0 - O , 1 - X
+        document.querySelectorAll(".checkbox").forEach((el) => {
+            el.addEventListener("click", function() {
+                if (event.target.innerHTML) return
+                if (activeplayer)
+                    event.target.innerHTML = 'X'
+                else
+                    event.target.innerHTML = 'O'
+                let game = checkWin(activeplayer)
+                if (game)
+                    document.querySelector(".main-game").innerHTML = "Winner " + game
+                else
+                    activeplayer = !activeplayer
+            })
+        })
+
+
+
+
+        //GAME 5 TYPING TRAINER 
+        let words = ['also', 'area', 'away', 'back', 'been', 'best', 'both', 'call', 'came', 'come',
+            'could', 'down', 'each', 'even', 'find', 'first', 'from', 'good', 'great', 'have',
+            'help', 'herd', 'here', 'into', 'just', 'know', 'last', 'left', 'like', 'line',
+            'long', 'made', 'make', 'many', 'mean', 'more', 'most', 'much', 'must', 'name',
+            'need', 'next', 'once', 'only', 'open', 'over', 'part', 'past', 'play', 'read',
+            'right', 'same', 'said', 'show', 'some', 'soon', 'such', 'sure', 'take', 'tell',
+            'than', 'that', 'them', 'then', 'they', 'this', 'time', 'turn', 'very', 'want',
+            'well', 'went', 'were', 'what', 'when', 'will', 'with', 'work', 'your',
+
+            'able', 'acid', 'aged', 'also', 'arms', 'away', 'base', 'been', 'belt', 'best',
+            'bill', 'blue', 'bowl', 'burn', 'call', 'came', 'card', 'cell', 'coal', 'come',
+            'cook', 'cool', 'copy', 'cost', 'dark', 'date', 'dead', 'deep', 'done', 'door',
+            'draw', 'drop', 'east', 'else', 'even', 'ever', 'face', 'fall', 'fast', 'fell',
+            'file', 'fill', 'find', 'fine', 'fire', 'firm', 'fish', 'five', 'flat', 'flow',
+
+        ]
+
+        let currentWords = []
+
+        let scoreGame5 = 0
+
+
+        function fillInCurent() {
+            for (let i = 0; i < 5; i++) {
+                let wrld = words[Math.floor(Math.random() * words.length)]
+                currentWords.push(wrld)
+                console.log(currentWords[i])
+            }
+            document.querySelector(".currentHtml").innerHTML = currentWords
+            document.querySelector(".game5Score").innerHTML = scoreGame5
+        }
+
+
+        function readAnsw() {
+            let userInpGame5 = document.querySelector(".userInpGame5");
+
+            userInpGame5.addEventListener("keypress", function(event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    let userInpGame5Value = userInpGame5.value;
+                    console.log(userInpGame5Value);
+
+
+
+                    if (userInpGame5Value == currentWords[0]) {
+                        console.log("true")
+                        newToWords();
+                        userInpGame5.value = ""
+                        scoreGame5++
+                        document.querySelector(".game5Score").innerHTML = scoreGame5
+                    } else {
+                        console.log("false")
+                        console.log(currentWords[0], ":  current")
+                        console.log(userInpGame5Value, ":  input")
+                        newToWords();
+                        userInpGame5.value = ""
+                        scoreGame5 = scoreGame5 - 1
+                        document.querySelector(".game5Score").innerHTML = scoreGame5
+                    }
+
+                    event.preventDefault();
+                }
+            });
+        }
+
+        //function to add new words to current , when old already used
+        function newToWords() {
+            let newWord = words[Math.floor(Math.random() * 50)];
+            currentWords.push(newWord);
+            currentWords.shift(); // Invoking shift() to remove the first element
+            console.log(currentWords);
+            document.querySelector(".currentHtml").innerHTML = currentWords
+
+        }
+
+
+        document.querySelector(".startGame5Btn").addEventListener("click", function() {
+            fillInCurent()
+
+            document.querySelector(".userInpGame5").addEventListener("keypress", readAnsw())
+
+        })
+
+
+
+
+        //  GAME 6 , VICTORINE TRUE FALSE   
+        let questions = [
+            "Рим - столиця Франції?",
+            "'Гаррі Поттер' написано Джоан Роулінг?",
+            "Тихий океан - найдовший океан на Землі?",
+            "Юпітер - найбільша планета у Сонячній системі?",
+            "'www' у веб-адресах означає 'World Wide Web'?",
+            "Уругвай виграв перший чемпіонат світу з футболу?",
+            "'NASA' - абревіатура для 'National Aeronautics and Space Administration'?",
+            "Альберт Ейнштейн вважається батьком сучасного фізики?",
+            "Книга після Біблії є найбільш проданою книгою у світі?",
+            "Годинник використовується для вимірювання тиску?",
+            "Тихий океан - найбільший океан на Землі?",
+            "'Au' у хімії означає срібло?",
+            "Хікарі у японській мові означає темний?",
+            "Програма для антивірусного захисту захищає комп'ютер від вірусів?",
+            "Фотосинтез - процес, коли рослини створюють їжу зі сонячного світла?",
+            "Лев Толстой написав 'Війна і мир'?",
+            "Китай - країна з найбільшою кількістю людей?",
+            "'HTML' означає 'HyperText Markup Language'?",
+            "'UNICEF' - абревіатура для 'United Nations International Children's Emergency Fund'?",
+            "Озеро Вікторія - найбільше озеро в Африці?",
+            "Альберт Ейнштейн написав теорію відносності?",
+            "Амазонка - найбільше річище на планеті?",
+            "Африка - найбільший материк?",
+            "'ETC' у англійській мові означає 'Екстермінація'?",
+            "Карл Маркс написав 'Революцію'?",
+            "Італія відома своїми піццами та пастою?",
+            "'PDF' - абревіатура для 'Portable Document Format'?",
+            "Ніагара - найбільший водоспад на планеті?",
+            "Програма 'Photoshop' редагує фотографії?",
+            "Легені є головним органом дихання у людини?"
+        ];
+        let num;
+
+
+        let answers = ["false", "true", "true", "true", "true", "false", "true", "true", "false", "false", "true", "false", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "false", "true", "true", "true", "true", "true", "true"];
+
+        let scoreG6 = 0;
+
+
+        document.querySelector(".startGame6Btn").addEventListener("click", startGame6);
+
+
+        function startGame6() {
+            num = Math.floor(Math.random() * questions.length);
+            let currentQuestion = questions[num];
+            document.querySelector(".questionG6").innerHTML = currentQuestion;
+
+            let userInpGame6 = document.querySelector(".userInpGame6");
+            userInpGame6.addEventListener("keypress", checkGame6);
+        }
+
+        function checkGame6(event) {
+            if (event.key === "Enter" || event.key === " ") {
+                let userInpGame6 = document.querySelector(".userInpGame6");
+                let currentAnswer = answers[num];
+
+                if (userInpGame6.value == currentAnswer) {
+                    questions.splice(num, 1);
+                    answers.splice(num, 1);
+                    scoreG6 = scoreG6 + 1;
+                    document.querySelector(".scoreG6").innerHTML = scoreG6;
+                    document.querySelector(".userInpGame6").value = ""
+                    newQuestionG6();
+                } else {
+                    questions.splice(num, 1);
+                    answers.splice(num, 1);
+                    scoreG6 = scoreG6 - 1;
+                    document.querySelector(".scoreG6").innerHTML = scoreG6;
+                    document.querySelector(".userInpGame6").value = ""
+                    newQuestionG6();
+                }
+                event.preventDefault();
+            }
+        }
+
+        function newQuestionG6() {
+            if (questions.length > 0) {
+                num = Math.floor(Math.random() * questions.length);
+                let currentQuestion = questions[num];
+                document.querySelector(".questionG6").innerHTML = currentQuestion;
+            } else {
+                alert("the end")
+                restartG6()
+            }
+        }
+
+        document.querySelector(".restartG6").addEventListener("click", restartG6)
+
+        function restartG6() {
+            questions = [
+                "Рим - столиця Франції?",
+                "'Гаррі Поттер' написано Джоан Роулінг?",
+                "Тихий океан - найдовший океан на Землі?",
+                "Юпітер - найбільша планета у Сонячній системі?",
+                "'www' у веб-адресах означає 'World Wide Web'?",
+                "Уругвай виграв перший чемпіонат світу з футболу?",
+                "'NASA' - абревіатура для 'National Aeronautics and Space Administration'?",
+                "Альберт Ейнштейн вважається батьком сучасного фізики?",
+                "Книга після Біблії є найбільш проданою книгою у світі?",
+                "Годинник використовується для вимірювання тиску?",
+                "Тихий океан - найбільший океан на Землі?",
+                "'Au' у хімії означає срібло?",
+                "Хікарі у японській мові означає темний?",
+                "Програма для антивірусного захисту захищає комп'ютер від вірусів?",
+                "Фотосинтез - процес, коли рослини створюють їжу зі сонячного світла?",
+                "Лев Толстой написав 'Війна і мир'?",
+                "Китай - країна з найбільшою кількістю людей?",
+                "'HTML' означає 'HyperText Markup Language'?",
+                "'UNICEF' - абревіатура для 'United Nations International Children's Emergency Fund'?",
+                "Озеро Вікторія - найбільше озеро в Африці?",
+                "Альберт Ейнштейн написав теорію відносності?",
+                "Амазонка - найбільше річище на планеті?",
+                "Африка - найбільший материк?",
+                "'ETC' у англійській мові означає 'Екстермінація'?",
+                "Карл Маркс написав 'Революцію'?",
+                "Італія відома своїми піццами та пастою?",
+                "'PDF' - абревіатура для 'Portable Document Format'?",
+                "Ніагара - найбільший водоспад на планеті?",
+                "Програма 'Photoshop' редагує фотографії?",
+                "Легені є головним органом дихання у людини?"
+            ];
+
+            answers = ["false", "true", "true", "true", "true", "false", "true", "true", "false", "false", "true", "false", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "false", "true", "true", "true", "true", "true", "true"];
+
+            scoreG6 = 0
+            document.querySelector(".scoreG6").innerHTML = scoreG6
+            document.querySelector(".userInpGame6").value = ""
+
+        }
+
+
+
+
+
+
+
+        //  GAME 7 COCKIE CLICKER
+        let allclicks = 0
+        let clickprice = 1
+        let clickspersecond = 1
+        let upgradeclicksprice = 5
+        let upgradecpsprice = 10
+        let allclickscounter = document.querySelector(".game7wrapper .clicks")
+        let cpscounter = document.querySelector(".game7wrapper .clickspersecond")
+        let clickupgradebutton = document.querySelector(".game7wrapper .upgrade-clicks")
+        let cpsupgradebutton = document.querySelector(".game7wrapper .upgrade-cps")
+        let mainclickbutton = document.querySelector(".game7wrapper .clicker-button")
+        document.querySelector(".game7wrapper .startGame7").addEventListener("click", function() {
+            mainclickbutton.addEventListener("click", function() {
+                    allclicks += clickprice
+                    allclickscounter.innerHTML = `Clicks: ${allclicks}`
+                })
+                //add cps
+            setInterval(function() {
+                    allclicks += clickspersecond
+                }, 1000)
+                //refresh all data
+            setInterval(function() {
+                allclickscounter.innerHTML = `Clicks: ${allclicks}`
+                cpscounter.innerHTML = `CPS: ${clickspersecond}`
+                clickupgradebutton.innerHTML = `${clickprice}/🖱, Price: ${upgradeclicksprice}`
+                cpsupgradebutton.innerHTML = `${clickspersecond}/🕛, Price: ${upgradecpsprice}`
+            }, 50)
+            clickupgradebutton.addEventListener("click", function() {
+                if (allclicks <= upgradeclicksprice) return
+                clickprice += 1
+                allclicks -= upgradeclicksprice
+                upgradeclicksprice = Math.floor(1.7 * upgradeclicksprice)
+            })
+            cpsupgradebutton.addEventListener("click", function() {
+                if (allclicks <= upgradecpsprice) return
+                clickspersecond += 1
+                allclicks -= upgradecpsprice
+                upgradecpsprice = Math.floor(1.8 * upgradecpsprice)
+            })
+
+
+            event.target.style.display = 'none'
+        })
+
+
+
+        //GAME 8
+
+
+        let scoreG8 = 0;
+        let num2 = 0;
+        let botAns = 2
+        let helperG8 = document.querySelector(".helperG8")
+
+
+        document.querySelector(".startGame8Btn").addEventListener("click", startGame8);
+
+
+        function startGame8() {
+            botAns = Math.floor(Math.random() * 10)
+            console.log(botAns)
+        }
+
+        document.querySelector(".checkG8").addEventListener("click", checkG8)
+
+        function checkG8() {
+            let userInpG8 = document.querySelector(".userInpG8").value
+            if (userInpG8 == botAns) {
+                helperG8.innerHTML = "right"
+                console.log("right")
+                document.querySelector(".userInpG8").value = ""
+            } else if (userInpG8 >= botAns) {
+                helperG8.innerHTML = "smaller"
+                console.log("smaller")
+                document.querySelector(".userInpG8").value = ""
+            } else {
+                helperG8.innerHTML = "bigger"
+                console.log("bigger")
+                document.querySelector(".userInpG8").value = ""
+            }
+        }
+
+
+
+        // GAME 9 Canvas snake
+
+
+        let blockSize = 25;
+        let rows = 20;
+        let cols = 20;
+        let board;
+        let context;
+        let snakeX = blockSize * 5;
+        let snakeY = blockSize * 5;
+        let velocityX = 0;
+        let velocityY = 0;
+        let snakeBody = [];
+        let foodX;
+        let foodY;
+        let gameOver = false;
+        let gameInterval
+
+
+        document.querySelector(".startGame9Btn").addEventListener("click", function() {
+            board = document.getElementById("board");
+            board.height = rows * blockSize;
+            board.width = cols * blockSize;
+            context = board.getContext("2d");
+            placeFood();
+            document.addEventListener("keyup", changeDirection);
+
+
+            gameInterval = setInterval(updateG9, 100);
+        })
+
+
+        document.querySelector(".restartG9").addEventListener("click", function() {
+            clearInterval(gameInterval);
+            snakeBody = [];
+            gameOver = false;
+
+            board = document.getElementById("board");
+            board.height = rows * blockSize;
+            board.width = cols * blockSize;
+            context = board.getContext("2d");
+
+
+            snakeX = blockSize * 5;
+            snakeY = blockSize * 5;
+
+
+            velocityX = 0;
+            velocityY = 0;
+
+            placeFood();
+            document.addEventListener("keyup", changeDirection);
+
+            gameInterval = setInterval(updateG9, 100);
+        });
+
+        function updateG9() {
+            if (gameOver) {
+                return;
+            }
+
+            context.fillStyle = "blue";
+            context.fillRect(0, 0, board.width, board.height);
+
+            context.fillStyle = "red";
+            context.fillRect(foodX, foodY, blockSize, blockSize);
+
+            if (snakeX == foodX && snakeY == foodY) {
+                snakeBody.push([foodX, foodY]);
+                placeFood();
+            }
+
+            for (let i = snakeBody.length - 1; i > 0; i--) {
+                snakeBody[i] = snakeBody[i - 1];
+            }
+            if (snakeBody.length) {
+                snakeBody[0] = [snakeX, snakeY];
+            }
+
+            context.fillStyle = "lime";
+            snakeX += velocityX * blockSize;
+            snakeY += velocityY * blockSize;
+            context.fillRect(snakeX, snakeY, blockSize, blockSize);
+            for (let i = 0; i < snakeBody.length; i++) {
+                context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+            }
+
+
+            if (snakeX < 0 || snakeX > cols * blockSize || snakeY < 0 || snakeY > rows * blockSize) {
+                gameOver = true;
+                alert("Game Over");
+            }
+
+            for (let i = 0; i < snakeBody.length; i++) {
+                if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
+                    gameOver = true;
+                    alert("Game Over");
+                }
+            }
+        }
+
+        function changeDirection(e) {
+            if (e.code == "ArrowUp" && velocityY != 1) {
+                velocityX = 0;
+                velocityY = -1;
+            } else if (e.code == "ArrowDown" && velocityY != -1) {
+                velocityX = 0;
+                velocityY = 1;
+            } else if (e.code == "ArrowLeft" && velocityX != 1) {
+                velocityX = -1;
+                velocityY = 0;
+            } else if (e.code == "ArrowRight" && velocityX != -1) {
+                velocityX = 1;
+                velocityY = 0;
+            }
+        }
+
+
+        function placeFood() {
+            foodX = Math.floor(Math.random() * cols) * blockSize;
+            foodY = Math.floor(Math.random() * rows) * blockSize;
+        }
+    </script>
+
+</body>
+</html>
