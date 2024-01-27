@@ -1,38 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <style>
-        /*main styles*/
-        
-        body {
-            background-color: rgb(0, 0, 0);
-            color: whitesmoke;
-            text-align: center;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+	   * {
+           margin: 0;
+           padding: 0;
+           font-family: consolas;
         }
-        /*title styles*/
-        
-        .titleText {
-            font-size: 27px;
+        body{
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 120s ease infinite;
+            user-select: none;
+        }
+
+        .wrapper {
+            height: 100vh;
+            background-color: rgba(0, 0, 0, .3);
+        }
+        header
+        {
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            width: 30%;
-            margin-top: 2%;
+            align-items: center;
+            text-align: center;
+            font-size: 1.7vw;
         }
+
+        header p:last-child
+        {
+            font-size: 1vw;
+            margin-top: .8%;
+        }
+        .name{
+            font-size: 5vw;
+            letter-spacing: 5px;
+            font-weight: 900;
+        }
+        .grid {
+        	margin: 2% auto;
+        	width: 60%;
+            height: 70%;
+            border: 2px dashed black;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            place-content: center;
+            grid-gap: 15px;
+            backdrop-filter: blur(25px);
+
+        }
+
+        .grid > * {
+        	border: 3px solid gray;
+        	overflow: hidden;
+        	transition: 1s;
+        	margin: 30px;
+        	background-color: rgba(0, 0, 0, .2);
+        	z-index: 3;
+
+        }
+
         /*game 1 , 2 styles*/
-        
+
         .gridDiv {
-            width: 30vw;
-            height: 25vw;
+            width: 90%;
+            height: 80%;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             border: 2px solid rgb(255, 255, 255);
             cursor: crosshair;
             user-select: none;
+            z-index: 1;
+            margin: 3% auto;
         }
-        
+
         .clickG3 {
             width: 20vw;
             height: 20vw;
@@ -43,21 +88,21 @@
             display: flex;
             justify-content: center;
         }
-        
-        .clickG3>p {
+
+        .clickG3 > p {
             margin-top: 40%;
             color: black;
         }
-        
+
         .item {
             font-size: 200%;
         }
-        
+
         .score,
         .scoreG1 {
             float: right;
         }
-        
+
         .allGamesWrapper {
             width: 80%;
             display: grid;
@@ -65,7 +110,7 @@
             padding: 10px;
             margin: 10px;
         }
-        
+
         .game1wrapper,
         .game2wrapper,
         .game3wrapper,
@@ -75,197 +120,371 @@
         .game7wrapper,
         .game8wrapper,
         .game9wrapper {
-            border: 2px solid white;
+            border: 1px solid grey;
             padding: 10px;
             margin: 10px;
+            background-color: rgba(0, 0, 0, .3);
+            width: 80%;
+            height: 90%;
+            color: white;
         }
-        
-        p {
-            width: auto;
-        }
-        
+
         .main-game {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             place-items: center;
-            width: 50vw;
-            height: 40vw;
+            width: 70%;
+            height: 100%;
             margin: 0 auto;
         }
-        
+
         .checkbox {
-            background-color: blue;
+            background-color: rgba(0, 0, 0, .3);
             width: 10vw;
             height: 10vw;
             border: 1px solid black;
-            font-size: 250%;
+            font-size: 550%;
             display: grid;
             place-items: center;
             color: white;
             font-weight: 900;
         }
-        
         .userInpGame5 {
             width: 100px;
         }
-        
+        /* _____ */
         .game7wrapper .game-wrapper {
             display: grid;
-            background-color: blue;
             grid-template-columns: repeat(2, 1fr);
         }
-    </style>
+        .grid > *
+        {
+            display: grid;
+            place-items: center;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            transition: .3s;
+        }
 
+        .play_game
+        {
+            padding: 2%;
+        }
+        .active_game_wrapper
+        {
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, .5);
+            position: absolute;
+            top: 0;
+            z-index: 5;
+            display: none;
+            place-items: center;
+            backdrop-filter: blur(15px);
+        }
+        .active_game_window
+        {
+            width: 60%;
+            height: 70vh;
+            display: grid;
+            place-items: center;
+        }
 
+        .grid > * > p
+        {
+            font-weight: 900;
+            font-size: 1.5vw;
+            pointer-events: none;
+        }
+
+        .grid > *:hover{
+            cursor: pointer;
+            color: red;
+            transform: scale(1.3);
+            background-color: rgba(0, 0, 0, .7);
+            transition: .3s;
+            backdrop-filter: blur(150px);
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /*game1*/
+        .game1wrapper button,
+        .game2wrapper button,
+        .game2wrapper input,
+        .game3wrapper button,
+        .game5wrapper button,
+        .game5wrapper input,
+        .game6wrapper button,
+        .game7wrapper button{
+            font-size: 150%;
+            padding: 0.5%;
+        }
+        .score{
+            font-size: 200%;
+        }
+        /*game2*/
+        .game2wrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 50%;
+        }
+        .game2wrapper p, 
+        .game3wrapper p{
+            font-size: 200%;
+        }
+        /*game3*/
+         .game3wrapper {
+           display: flex;
+           flex-direction: column;
+           justify-content: space-around;
+           align-items: center;
+         }
+         .game3wrapper p{
+            width: 70%;
+            text-align: center;
+         }
+
+         .game5wrapper, .game6wrapper
+         {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 25%;
+         }
+
+         .game5wrapper input
+         {
+            width: 80%;
+         }
+         .game2wrapper button,
+         .game3wrapper button,
+         .game5wrapper button, 
+         .game6wrapper button,
+         .game7wrapper > button,
+         .startGame8Btn,
+         .game9wrapper button
+         {
+            width: 30%;
+            padding: 1%;
+         }
+         .game5wrapper > *, .game6wrapper > *
+         {
+            font-size: 175%;
+         }
+         
+         .game6wrapper, .game7wrapper
+         {
+            height: 50%;
+         }
+         .game7wrapper > *
+         {
+            font-size: 150%;
+         }
+         .game7wrapper .upgrades, .game7wrapper .game
+         {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+         }
+         .game7wrapper .clicker-button
+         {
+            font-size: 400%;
+         }
+         .game7wrapper p
+         {
+            font-size: 120%;
+         }
+         .game7wrapper
+         {
+            display: grid;
+            place-items: center;
+            width: 60%;
+         }
+
+         .game8wrapper
+         {
+            height: 50%;
+            width: 50%;
+            font-size: 200%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+         }
+         .game8wrapper button{
+            width: 50%;
+            font-size: 110%;
+         }
+         .game8wrapper input{
+            font-size: 125%;
+         }
+         .game9wrapper{
+            display: grid;
+            place-items: center;
+         }
+         #board
+         {
+            width: 60%;
+         }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300&display=swap" rel="stylesheet">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robo Project</title>
+    <title>R0B0B0R3D</title>
 </head>
-
 <body>
-    <p class="titleText">Free games to play offline</p>
-
-    <div class="allGamesWrapper">
-
-        <div class="game1wrapper">
-            <button class="startGame1Btn">PLAY!</button>
-            <p>Aim trainer</p>
-            <p class="score">0</p>
-            <div class="gridDiv">
-
-            </div>
-
-            <button class="restartG1btn">Restart</button>
-
+	<div class="wrapper">
+        <header>
+          <p class="name">R0B0B🥱RED</p>
+          <p>When nothing to do</p>
+          <p>CTRL+S to save website for later🤫</p>
+          <p>F5 to Restart</p>
+      </header>
+      <div class="grid">
+         <div class="grid_item1">
+            <p>🎯TRAINER🎯</p>
         </div>
-
-
-        <div class="game2wrapper">
-            <button class="startGame2Btn">PLAY!</button>
-            <p>Words</p>
-            <p class="scoreG1">0</p>
-            <p class="theme">Theme : </p>
-            <p class="mainWord">Letters : </p>
-            <input type="text" name="" id="" class="userInp">
-            <button class="answerBtn">Answer</button>
+        <div class="grid_item2">
+            <p>💬WORD GUESSER💬</p>
         </div>
-
-
-        <div class="game3wrapper">
-            <button class="startGame3Btn">PLAY!</button>
-            <p>Clicker</p>
-
-            <p style="float: left;">Score: </p>
-            <p style="float: right;" class="scoreG3">0</p>
-            <br>
-            <p style="float: left;">Time left :
-                <p style="float: right;" class="timeG3">10</p>
-            </p>
-            <div class="clickG3">
-                <p>Click here to score points</p>
-            </div>
-            <p style="float: left;">CPS:
-                <p style="float: right;" class="cps">0</p>
-            </p>
+        <div class="grid_item3">
+            <p>⏰TIME CLICKER⏰</p>
         </div>
-
-
-        <div class="game4wrapper">
-
-            <div class="main-game">
-
-            </div>
-
-
-
-
-
+        <div class="grid_item4">
+            <p>❌TIK TAC TOE🅾️</p>
         </div>
-        <div class="game5wrapper">
-            <button class="startGame5Btn">PLAY!</button>
-            <p>Typing trainer</p>
-            <p class="game5Score"></p>
-            <p class="currentHtml"></p>
-            <input type="text" name="" class="userInpGame5">
-
-
+        <div class="grid_item5">
+            <p>✏️TYPING GAME✏️</p>
         </div>
-
-        <div class="game6wrapper">
-            <button class="startGame6Btn">PLAY!</button>
-            <p>Victorine true/false</p>
-            <p style="float: left;">Score : </p>
-            <p style="float: right;" class="scoreG6">0</p>
-            <br>
-
-            <p style="float: right;" class="questionG6"></p>
-            <br>
-            <br>
-            <input type="text" name="" class="userInpGame6">
-            <button class="restartG6">Restart</button>
+        <div class="grid_item6">
+            <p>✍️VICTORINE✍️</p>
         </div>
-
-
-        <div class="game7wrapper">
-            <button class="startGame7">PLAY!</button>
-            <p class="game-header">PC Clicker</p>
-            <div class="game-wrapper">
-                <div class="game">
-                    <p class="clicks">Clicks: 0</p>
-                    <p class="clickspersecond">CPS: 0</p>
-                    <button class="clicker-button" style="background-color: rgba(0,0,0,0);font-size: 6vw">🖥</button>
-                </div>
-                <div class="upgrades">
-                    <p>Upgrades:</p>
-                    <button class="upgrade-clicks"></button>
-                    <button class="upgrade-cps"></button>
-                </div>
-            </div>
-
+        <div class="grid_item7">
+            <p>🖱️PC CLICKER🖱️</p>
         </div>
-
-
-        <div class="game8wrapper">
-            <button class="startGame8Btn">PLAY!</button>
-
-            <p>Guess the number</p><br>
-            <p class="helperG8">???</p>
-            <input type="text" name="" class="userInpG8" id="">
-            <button class="checkG8">Check answ</button>
-
-            <button class="restartG8">Restart</button>
+        <div class="grid_item8">
+            <p>💯NUMBER GUESS💯</p>
         </div>
-
-        <div class="game9wrapper">
-            <p>Snake game</p>
-            <button class="startGame9Btn">PLAY!</button>
-            <canvas id="board"></canvas>
-            <button class="restartG9">Restart</button>
+        <div class="grid_item9">
+            <p>🐍SNAKE GAME🐍</p>
         </div>
-
     </div>
+</div>
+
+<div class="active_game_wrapper">
+    <div class="active_game_window"></div>
+</div>
+
+<script>
+        //HTML game list to append in active game wrapper
+    const GAME = [`<div class="game1wrapper">
+        <button class="startGame1Btn">PLAY!</button>
+        <button class="restartG1btn">Restart</button>
+        
+        <div class="gridDiv"></div>
+        <p class="score">0</p>
+        </div>`,
+        `<div class="game2wrapper">
+        <button class="startGame2Btn">PLAY!</button>
+        <p class="scoreG1">0</p>
+        <p class="theme">Theme : </p>
+        <p class="mainWord">Letters : </p>
+        <input type="text" name="" id="" class="userInp">
+        <button class="answerBtn">Answer</button>
+        </div>`,
+        `<div class="game3wrapper">
+        <button class="startGame3Btn">PLAY!</button>
+        <p style="float: left;">Score</p>
+        <p style="float: right;" class="scoreG3">0</p>
+        
+        <p style="float: left;">Time left
+        <p style="float: right;" class="timeG3">10</p>
+        </p>
+        <div class="clickG3">
+        <p>Click here to score points</p>
+        </div>
+        <p style="float: left;">CPS:
+        <p style="float: right;" class="cps">0</p>
+        </p>
+        </div>`,
+        `<div class="game4wrapper">
+        <div class="main-game"></div>
+        </div>`,
+        `<div class="game5wrapper">
+        <button class="startGame5Btn">PLAY!</button>
+        <p class="game5Score"></p>
+        <p class="currentHtml"></p>
+        <input type="text" name="" class="userInpGame5">
+        </div>`,
+        `<div class="game6wrapper">
+        <button class="startGame6Btn">PLAY!</button>
+        <p>True or False</p>
+        <p style="float: left;">Score : </p>
+        <p style="float: right;" class="scoreG6">0</p>
+        <br>
+
+        <p style="float: right;" class="questionG6"></p>
+        <br>
+        <br>
+        <input type="text" name="" class="userInpGame6">
+        </div>`,
+        `<div class="game7wrapper">
+        <button class="startGame7">PLAY!</button>
+        <div class="game-wrapper">
+        <div class="game">
+        <p class="clicks">Clicks: 0</p>
+        <p class="clickspersecond">CPS: 0</p>
+        <button class="clicker-button" style="background-color: rgba(0,0,0,0);font-size: 8vw">🖥️</button>
+        </div>
+        <div class="upgrades">
+        <p>Upgrades:</p>
+        <button class="upgrade-clicks"></button>
+        <button class="upgrade-cps"></button>
+        </div>
+        </div>
+        </div>`,
+        `<div class="game8wrapper">
+        <button class="startGame8Btn">PLAY!</button>
+
+        <p>Guess the number</p><br>
+        <p class="helperG8">???(0-10)???</p>
+        <input type="text" name="" class="userInpG8" id="">
+        <button class="checkG8">Check answ</button>
+        </div>`,
+        `<div class="game9wrapper">
+        <button class="startGame9Btn">PLAY!</button>
+        <canvas id="board"></canvas>
+        <button class="restartG9">Restart</button>
+        </div>`]
+    let games = []
+
+
+         //On any game button clicked
 
 
 
 
-
-    <script>
-        // global variables
-
-
-
-        // GAME 1 AIM TRAINER   
+        // GAME 1 AIM TRAINER 
+    games.push(function beginGame1()
+    {
         let playButton = document.querySelector(".startGame1Btn");
 
         playButton.addEventListener("click", function() {
             if (!playButton.classList.contains('gameStarted')) {
                 playButton.classList.add('gameStarted');
                 gameTwo();
+                event.target.style.display = "none"
             }
         });
 
@@ -333,11 +552,13 @@
                 playButton.classList.remove('gameStarted');
             }
         }
-
+    } )
         //GAME 2  WORDS QUEST
+    games.push(function beginGame2(){
         document.querySelector(".startGame2Btn").addEventListener("click", gameOne)
 
         function gameOne() {
+            event.target.style.display = "none"
             let currentWord = ""
             let totalScrore = 0
 
@@ -384,7 +605,7 @@
 
                     else totalScrore--
 
-                        document.querySelector(".scoreG1").innerHTML = totalScrore
+                document.querySelector(".scoreG1").innerHTML = totalScrore
                 document.querySelector(".userInp").value = ""
                 showWord()
             })
@@ -393,11 +614,13 @@
 
         }
 
-
+    })
         //  GAME 3 CLICKER  
+    games.push(function beginGame3(){
         document.querySelector(".startGame3Btn").addEventListener("click", gameThree);
 
         function gameThree() {
+            event.target.style.display = "none"
             let scoreG3 = 0;
             let time = 10;
             let clickArea = document.querySelector(".clickG3");
@@ -434,9 +657,9 @@
             countdown = setInterval(timeCount, 1000);
         }
 
-
+    })
         // GAME 4 XO GAME   
-
+    games.push(function beginGame4(){
         let elarray = []
 
         function initBoard() {
@@ -449,49 +672,55 @@
         }
 
         function checkWin(ap) {
-            if (ap) ap = 'X'
-            else ap = 'O'
+            if (ap) ap = '❌'
+                else ap = '🅾️'
             let els = 0
             let s = 0
             for (let i = 0; i < 9; i++) {
                 if (elarray[i].innerHTML == ap) els++
                     s++
-                    if (els == 3) return ap
-                if (s == 3) {
-                    s = 0
-                    els = 0
+                if (els == 3) return ap
+                    if (s == 3) {
+                        s = 0
+                        els = 0
+                    }
                 }
-            }
-            for (let c = 0; c < 3; c++) {
-                let e = 0
-                if (elarray[c].innerHTML == ap) e++
-                    if (elarray[c + 3].innerHTML == ap) e++
-                        if (elarray[c + 6].innerHTML == ap) e++
-                            if (e == 3) return ap
-            }
-            if (elarray[0].innerHTML == ap && elarray[4].innerHTML == ap && elarray[8].innerHTML == ap) return ap
-            if (elarray[2].innerHTML == ap && elarray[4].innerHTML == ap && elarray[6].innerHTML == ap) return ap
-            return 0
-        }
-        initBoard()
+                for (let c = 0; c < 3; c++) {
+                    let e = 0
+                    if (elarray[c].innerHTML == ap) e++
+                        if (elarray[c + 3].innerHTML == ap) e++
+                            if (elarray[c + 6].innerHTML == ap) e++
+                                if (e == 3) return ap
+                            }
+                        if (elarray[0].innerHTML == ap && elarray[4].innerHTML == ap && elarray[8].innerHTML == ap) return ap
+                            if (elarray[2].innerHTML == ap && elarray[4].innerHTML == ap && elarray[6].innerHTML == ap) return ap
+                                return 0
+                        }
+                        initBoard()
         let activeplayer = true; // 0 - O , 1 - X
         document.querySelectorAll(".checkbox").forEach((el) => {
             el.addEventListener("click", function() {
                 if (event.target.innerHTML) return
-                if (activeplayer)
-                    event.target.innerHTML = 'X'
-                else
-                    event.target.innerHTML = 'O'
-                let game = checkWin(activeplayer)
-                if (game)
-                    document.querySelector(".main-game").innerHTML = "Winner " + game
-                else
-                    activeplayer = !activeplayer
-            })
+                    if (activeplayer)
+                        event.target.innerHTML = '❌'
+                    else
+                        event.target.innerHTML = '🅾️'
+                    let game = checkWin(activeplayer)
+                    if (game){
+                        document.querySelector(".main-game").innerHTML = `<p>${game}WON🥳</p>`
+                        document.querySelector(".main-game").style.fontSize = "600%";
+                        document.querySelector(".main-game").style.textAlign = "center";
+                        document.querySelector(".main-game").style.display = "flex";
+                        document.querySelector(".main-game").style.justifyContent = "center";
+                    }
+                    else
+                        activeplayer = !activeplayer
+                })
         })
 
 
-
+    })
+    games.push(function beginGame5(){
 
         //GAME 5 TYPING TRAINER 
         let words = ['also', 'area', 'away', 'back', 'been', 'best', 'both', 'call', 'came', 'come',
@@ -509,7 +738,7 @@
             'draw', 'drop', 'east', 'else', 'even', 'ever', 'face', 'fall', 'fast', 'fell',
             'file', 'fill', 'find', 'fine', 'fire', 'firm', 'fish', 'five', 'flat', 'flow',
 
-        ]
+            ]
 
         let currentWords = []
 
@@ -531,6 +760,7 @@
             let userInpGame5 = document.querySelector(".userInpGame5");
 
             userInpGame5.addEventListener("keypress", function(event) {
+
                 if (event.key === "Enter" || event.key === " ") {
                     let userInpGame5Value = userInpGame5.value;
                     console.log(userInpGame5Value);
@@ -570,6 +800,7 @@
 
 
         document.querySelector(".startGame5Btn").addEventListener("click", function() {
+            event.target.style.display = "none"
             fillInCurent()
 
             document.querySelector(".userInpGame5").addEventListener("keypress", readAnsw())
@@ -577,8 +808,8 @@
         })
 
 
-
-
+    })
+    games.push(function beginGame6(){
         //  GAME 6 , VICTORINE TRUE FALSE   
         let questions = [
             "Рим - столиця Франції?",
@@ -611,7 +842,7 @@
             "Ніагара - найбільший водоспад на планеті?",
             "Програма 'Photoshop' редагує фотографії?",
             "Легені є головним органом дихання у людини?"
-        ];
+            ];
         let num;
 
 
@@ -624,6 +855,7 @@
 
 
         function startGame6() {
+            event.target.style.display = "none"
             num = Math.floor(Math.random() * questions.length);
             let currentQuestion = questions[num];
             document.querySelector(".questionG6").innerHTML = currentQuestion;
@@ -636,8 +868,7 @@
             if (event.key === "Enter" || event.key === " ") {
                 let userInpGame6 = document.querySelector(".userInpGame6");
                 let currentAnswer = answers[num];
-
-                if (userInpGame6.value == currentAnswer) {
+                if (userInpGame6.value.toLowerCase() == currentAnswer) {
                     questions.splice(num, 1);
                     answers.splice(num, 1);
                     scoreG6 = scoreG6 + 1;
@@ -701,7 +932,7 @@
                 "Ніагара - найбільший водоспад на планеті?",
                 "Програма 'Photoshop' редагує фотографії?",
                 "Легені є головним органом дихання у людини?"
-            ];
+                ];
 
             answers = ["false", "true", "true", "true", "true", "false", "true", "true", "false", "false", "true", "false", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "false", "true", "true", "true", "true", "true", "true"];
 
@@ -715,215 +946,239 @@
 
 
 
+    })
+games.push(function beginGame7(){
 
 
-        //  GAME 7 COCKIE CLICKER
-        let allclicks = 0
-        let clickprice = 1
-        let clickspersecond = 1
-        let upgradeclicksprice = 5
-        let upgradecpsprice = 10
-        let allclickscounter = document.querySelector(".game7wrapper .clicks")
-        let cpscounter = document.querySelector(".game7wrapper .clickspersecond")
-        let clickupgradebutton = document.querySelector(".game7wrapper .upgrade-clicks")
-        let cpsupgradebutton = document.querySelector(".game7wrapper .upgrade-cps")
-        let mainclickbutton = document.querySelector(".game7wrapper .clicker-button")
-        document.querySelector(".game7wrapper .startGame7").addEventListener("click", function() {
-            mainclickbutton.addEventListener("click", function() {
-                    allclicks += clickprice
-                    allclickscounter.innerHTML = `Clicks: ${allclicks}`
-                })
+
+        //  GAME 7 COOCKIE CLICKER
+    let allclicks = 0
+    let clickprice = 1
+    let clickspersecond = 1
+    let upgradeclicksprice = 5
+    let upgradecpsprice = 10
+    let allclickscounter = document.querySelector(".game7wrapper .clicks")
+    let cpscounter = document.querySelector(".game7wrapper .clickspersecond")
+    let clickupgradebutton = document.querySelector(".game7wrapper .upgrade-clicks")
+    let cpsupgradebutton = document.querySelector(".game7wrapper .upgrade-cps")
+    let mainclickbutton = document.querySelector(".game7wrapper .clicker-button")
+    document.querySelector(".game7wrapper .startGame7").addEventListener("click", function() {
+        event.target.style.display = "none"
+        mainclickbutton.addEventListener("click", function() {
+            allclicks += clickprice
+            allclickscounter.innerHTML = `Clicks: ${allclicks}`
+        })
                 //add cps
-            setInterval(function() {
-                    allclicks += clickspersecond
-                }, 1000)
+        setInterval(function() {
+            allclicks += clickspersecond
+        }, 1000)
                 //refresh all data
-            setInterval(function() {
-                allclickscounter.innerHTML = `Clicks: ${allclicks}`
-                cpscounter.innerHTML = `CPS: ${clickspersecond}`
-                clickupgradebutton.innerHTML = `${clickprice}/🖱, Price: ${upgradeclicksprice}`
-                cpsupgradebutton.innerHTML = `${clickspersecond}/🕛, Price: ${upgradecpsprice}`
-            }, 50)
-            clickupgradebutton.addEventListener("click", function() {
-                if (allclicks <= upgradeclicksprice) return
+        setInterval(function() {
+            allclickscounter.innerHTML = `Clicks: ${allclicks}`
+            cpscounter.innerHTML = `CPS: ${clickspersecond}`
+            clickupgradebutton.innerHTML = `${clickprice}/🖱, Price: ${upgradeclicksprice}`
+            cpsupgradebutton.innerHTML = `${clickspersecond}/🕛, Price: ${upgradecpsprice}`
+        }, 50)
+        clickupgradebutton.addEventListener("click", function() {
+            if (allclicks <= upgradeclicksprice) return
                 clickprice += 1
-                allclicks -= upgradeclicksprice
-                upgradeclicksprice = Math.floor(1.7 * upgradeclicksprice)
-            })
-            cpsupgradebutton.addEventListener("click", function() {
-                if (allclicks <= upgradecpsprice) return
+            allclicks -= upgradeclicksprice
+            upgradeclicksprice = Math.floor(1.7 * upgradeclicksprice)
+        })
+        cpsupgradebutton.addEventListener("click", function() {
+            if (allclicks <= upgradecpsprice) return
                 clickspersecond += 1
-                allclicks -= upgradecpsprice
-                upgradecpsprice = Math.floor(1.8 * upgradecpsprice)
-            })
-
-
-            event.target.style.display = 'none'
+            allclicks -= upgradecpsprice
+            upgradecpsprice = Math.floor(1.8 * upgradecpsprice)
         })
 
 
+        event.target.style.display = 'none'
+    })
+
+})
 
         //GAME 8
+games.push(function beginGame8(){
 
 
-        let scoreG8 = 0;
-        let num2 = 0;
-        let botAns = 2
-        let helperG8 = document.querySelector(".helperG8")
+
+    let scoreG8 = 0;
+    let num2 = 0;
+    let botAns = 2
+    let helperG8 = document.querySelector(".helperG8")
 
 
-        document.querySelector(".startGame8Btn").addEventListener("click", startGame8);
+    document.querySelector(".startGame8Btn").addEventListener("click", startGame8);
 
 
-        function startGame8() {
-            botAns = Math.floor(Math.random() * 10)
-            console.log(botAns)
+    function startGame8() {
+        event.target.style.display = "none"
+        botAns = Math.floor(Math.random() * 11)
+        console.log(botAns)
+    }
+
+    document.querySelector(".checkG8").addEventListener("click", checkG8)
+
+    function checkG8() {
+        let userInpG8 = document.querySelector(".userInpG8").value
+        if (userInpG8 == botAns) {
+            helperG8.innerHTML = "right"
+            console.log("right")
+            document.querySelector(".userInpG8").value = ""
+        } else if (userInpG8 >= botAns) {
+            helperG8.innerHTML = "smaller"
+            console.log("smaller")
+            document.querySelector(".userInpG8").value = ""
+        } else {
+            helperG8.innerHTML = "bigger"
+            console.log("bigger")
+            document.querySelector(".userInpG8").value = ""
         }
+    }
 
-        document.querySelector(".checkG8").addEventListener("click", checkG8)
-
-        function checkG8() {
-            let userInpG8 = document.querySelector(".userInpG8").value
-            if (userInpG8 == botAns) {
-                helperG8.innerHTML = "right"
-                console.log("right")
-                document.querySelector(".userInpG8").value = ""
-            } else if (userInpG8 >= botAns) {
-                helperG8.innerHTML = "smaller"
-                console.log("smaller")
-                document.querySelector(".userInpG8").value = ""
-            } else {
-                helperG8.innerHTML = "bigger"
-                console.log("bigger")
-                document.querySelector(".userInpG8").value = ""
-            }
-        }
-
-
+})
 
         // GAME 9 Canvas snake
+games.push(function beginGame9(){
 
 
-        let blockSize = 25;
-        let rows = 20;
-        let cols = 20;
-        let board;
-        let context;
-        let snakeX = blockSize * 5;
-        let snakeY = blockSize * 5;
-        let velocityX = 0;
-        let velocityY = 0;
-        let snakeBody = [];
-        let foodX;
-        let foodY;
-        let gameOver = false;
-        let gameInterval
+
+    let blockSize = 25;
+    let rows = 20;
+    let cols = 20;
+    let board;
+    let context;
+    let snakeX = blockSize * 5;
+    let snakeY = blockSize * 5;
+    let velocityX = 0;
+    let velocityY = 0;
+    let snakeBody = [];
+    let foodX;
+    let foodY;
+    let gameOver = false;
+    let gameInterval
 
 
-        document.querySelector(".startGame9Btn").addEventListener("click", function() {
-            board = document.getElementById("board");
-            board.height = rows * blockSize;
-            board.width = cols * blockSize;
-            context = board.getContext("2d");
+    document.querySelector(".startGame9Btn").addEventListener("click", function() {
+        event.target.style.display = "none"
+        board = document.getElementById("board");
+        board.height = rows * blockSize;
+        board.width = cols * blockSize;
+        context = board.getContext("2d");
+        placeFood();
+        document.addEventListener("keyup", changeDirection);
+
+
+        gameInterval = setInterval(updateG9, 100);
+    })
+
+
+    document.querySelector(".restartG9").addEventListener("click", function() {
+        clearInterval(gameInterval);
+        snakeBody = [];
+        gameOver = false;
+
+        board = document.getElementById("board");
+        board.height = rows * blockSize;
+        board.width = cols * blockSize;
+        context = board.getContext("2d");
+
+
+        snakeX = blockSize * 5;
+        snakeY = blockSize * 5;
+
+
+        velocityX = 0;
+        velocityY = 0;
+
+        placeFood();
+        document.addEventListener("keyup", changeDirection);
+
+        gameInterval = setInterval(updateG9, 100);
+    });
+
+    function updateG9() {
+        if (gameOver) {
+            return;
+        }
+
+        context.fillStyle = "rgba(0, 0, 0, 1)";
+        context.fillRect(0, 0, board.width, board.height);
+
+        context.fillStyle = "red";
+        context.fillRect(foodX, foodY, blockSize, blockSize);
+
+        if (snakeX == foodX && snakeY == foodY) {
+            snakeBody.push([foodX, foodY]);
             placeFood();
-            document.addEventListener("keyup", changeDirection);
+        }
+
+        for (let i = snakeBody.length - 1; i > 0; i--) {
+            snakeBody[i] = snakeBody[i - 1];
+        }
+        if (snakeBody.length) {
+            snakeBody[0] = [snakeX, snakeY];
+        }
+
+        context.fillStyle = "lime";
+        snakeX += velocityX * blockSize;
+        snakeY += velocityY * blockSize;
+        context.fillRect(snakeX, snakeY, blockSize, blockSize);
+        for (let i = 0; i < snakeBody.length; i++) {
+            context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+        }
 
 
-            gameInterval = setInterval(updateG9, 100);
-        })
+        if (snakeX < 0 || snakeX > cols * blockSize || snakeY < 0 || snakeY > rows * blockSize) {
+            gameOver = true;
+            alert("Game Over");
+        }
 
-
-        document.querySelector(".restartG9").addEventListener("click", function() {
-            clearInterval(gameInterval);
-            snakeBody = [];
-            gameOver = false;
-
-            board = document.getElementById("board");
-            board.height = rows * blockSize;
-            board.width = cols * blockSize;
-            context = board.getContext("2d");
-
-
-            snakeX = blockSize * 5;
-            snakeY = blockSize * 5;
-
-
-            velocityX = 0;
-            velocityY = 0;
-
-            placeFood();
-            document.addEventListener("keyup", changeDirection);
-
-            gameInterval = setInterval(updateG9, 100);
-        });
-
-        function updateG9() {
-            if (gameOver) {
-                return;
-            }
-
-            context.fillStyle = "blue";
-            context.fillRect(0, 0, board.width, board.height);
-
-            context.fillStyle = "red";
-            context.fillRect(foodX, foodY, blockSize, blockSize);
-
-            if (snakeX == foodX && snakeY == foodY) {
-                snakeBody.push([foodX, foodY]);
-                placeFood();
-            }
-
-            for (let i = snakeBody.length - 1; i > 0; i--) {
-                snakeBody[i] = snakeBody[i - 1];
-            }
-            if (snakeBody.length) {
-                snakeBody[0] = [snakeX, snakeY];
-            }
-
-            context.fillStyle = "lime";
-            snakeX += velocityX * blockSize;
-            snakeY += velocityY * blockSize;
-            context.fillRect(snakeX, snakeY, blockSize, blockSize);
-            for (let i = 0; i < snakeBody.length; i++) {
-                context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
-            }
-
-
-            if (snakeX < 0 || snakeX > cols * blockSize || snakeY < 0 || snakeY > rows * blockSize) {
+        for (let i = 0; i < snakeBody.length; i++) {
+            if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
                 gameOver = true;
                 alert("Game Over");
             }
-
-            for (let i = 0; i < snakeBody.length; i++) {
-                if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
-                    gameOver = true;
-                    alert("Game Over");
-                }
-            }
         }
+    }
 
-        function changeDirection(e) {
-            if (e.code == "ArrowUp" && velocityY != 1) {
-                velocityX = 0;
-                velocityY = -1;
-            } else if (e.code == "ArrowDown" && velocityY != -1) {
-                velocityX = 0;
-                velocityY = 1;
-            } else if (e.code == "ArrowLeft" && velocityX != 1) {
-                velocityX = -1;
-                velocityY = 0;
-            } else if (e.code == "ArrowRight" && velocityX != -1) {
-                velocityX = 1;
-                velocityY = 0;
-            }
+    function changeDirection(e) {
+        if (e.code == "ArrowUp" && velocityY != 1) {
+            velocityX = 0;
+            velocityY = -1;
+        } else if (e.code == "ArrowDown" && velocityY != -1) {
+            velocityX = 0;
+            velocityY = 1;
+        } else if (e.code == "ArrowLeft" && velocityX != 1) {
+            velocityX = -1;
+            velocityY = 0;
+        } else if (e.code == "ArrowRight" && velocityX != -1) {
+            velocityX = 1;
+            velocityY = 0;
         }
+    }
 
 
-        function placeFood() {
-            foodX = Math.floor(Math.random() * cols) * blockSize;
-            foodY = Math.floor(Math.random() * rows) * blockSize;
-        }
-    </script>
+    function placeFood() {
+        foodX = Math.floor(Math.random() * cols) * blockSize;
+        foodY = Math.floor(Math.random() * rows) * blockSize;
+    }
+
+})
+let playGameButtons = document.querySelectorAll(".grid > *");
+playGameButtons.forEach((button) => {
+    button.addEventListener("click", function(){
+        let gameId = event.target.className.slice(-1) - 1
+        document.querySelector(".active_game_wrapper").style.display = "grid"
+        document.querySelector(".active_game_window").innerHTML = GAME[gameId]
+        games[gameId]()
+        console.log(gameId)
+    })
+})
+
+
+</script>
+
 </body>
-
 </html>
